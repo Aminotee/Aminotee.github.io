@@ -3,618 +3,371 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amine — Jazz &amp; Lounge Pianist</title>
-<meta name="description" content="Amine — jazz &amp; lounge pianist. Jazz standards, sentimental classics, modern lounge and Andalusian repertoire for hotels, restaurants and private events.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Aminote — Pianist</title>
+<meta name="description" content="Aminote — pianist for hotel lounges, restaurants and private events. Jazz standards, sentimental classics, and Andalusian-flavored sets.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B9%3C/text%3E%3C/svg%3E">
 <style>
-  :root {
-    --bg: #0d0f14;
-    --bg-soft: #12151c;
-    --bg-card: #171b24;
-    --line: rgba(212, 175, 55, 0.18);
-    --line-soft: rgba(255, 255, 255, 0.07);
-    --gold: #d4af37;
-    --gold-soft: #e8cd7a;
-    --ink: #eae6dc;
-    --ink-dim: #9a968c;
-    --ink-faint: #6b675f;
-    --serif: "Cormorant Garamond", Georgia, serif;
-    --sans: "Jost", "Segoe UI", sans-serif;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  ::selection { background: rgba(212,175,55,.28); }
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  :root{
+    --ink:#0E211D;
+    --teal:#123B3D;
+    --gold:#C9A227;
+    --parchment:#EDE6D3;
+    --burgundy:#7A2E2E;
+    --ivory:#F3ECDB;
+    --line: rgba(243,236,219,0.14);
+  }
 
-  /* ---------- Nav ---------- */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    background: rgba(13, 15, 20, 0.78);
-    border-bottom: 1px solid transparent;
-    transition: border-color .4s;
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ivory);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
   }
-  nav.scrolled { border-bottom-color: var(--line-soft); }
-  .nav-inner {
-    max-width: 1060px; margin: 0 auto; padding: 18px 24px;
-    display: flex; align-items: center; justify-content: space-between;
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
   }
-  .nav-logo {
-    font-family: var(--serif); font-size: 1.35rem; font-weight: 600;
-    letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none;
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:0.04em;
   }
-  .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 34px; }
-  .nav-links a {
-    color: var(--ink-dim); text-decoration: none; font-size: .78rem;
-    letter-spacing: .22em; text-transform: uppercase; font-weight: 400;
-    transition: color .3s;
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:640px){ section{padding:64px 0;} }
+
+  /* ---------- Keystrip signature element ---------- */
+  .keystrip{
+    display:flex;
+    height:22px;
+    width:100%;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
   }
-  .nav-links a:hover { color: var(--gold-soft); }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  .keystrip .key{
+    flex:1;
+    border-right:1px solid var(--line);
+    background:transparent;
+    transition:background 0.25s ease;
+  }
+  .keystrip .key:last-child{border-right:none;}
+  .keystrip .key.black{
+    background:rgba(0,0,0,0.35);
+    max-width:14px;
+    margin:0 -7px;
+    z-index:1;
+    height:60%;
+  }
+  @media (hover:hover){
+    .keystrip .key:hover{background:var(--gold);}
+  }
 
   /* ---------- Hero ---------- */
-  header {
-    min-height: 100svh;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
-    text-align: center; position: relative;
-    padding: 120px 24px 0;
-    background:
-      radial-gradient(ellipse 90% 55% at 50% -10%, rgba(212,175,55,.10), transparent 60%),
-      radial-gradient(ellipse 70% 45% at 50% 108%, rgba(43,58,94,.35), transparent 65%),
-      var(--bg);
+  .hero{padding:0; overflow:hidden; position:relative; min-height:86vh; display:flex; align-items:flex-end;}
+  .hero-photo{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:50% 22%;
+    filter:grayscale(1) contrast(1.08) brightness(0.95);
   }
-  .hero-eyebrow {
-    font-size: .78rem; letter-spacing: .48em; text-transform: uppercase;
-    color: var(--gold); font-weight: 400; margin-bottom: 26px;
-    padding-left: .48em;
+  .hero-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(14,33,29,0.10) 0%, rgba(14,33,29,0.45) 45%, rgba(14,33,29,0.97) 92%);
   }
-  .hero-name {
-    font-family: var(--serif); font-weight: 500;
-    font-size: clamp(3.4rem, 11vw, 7.5rem);
-    line-height: 1.02; letter-spacing: .02em;
+  .hero-inner{padding:64px 0 72px; position:relative; z-index:2; width:100%; text-align:center;}
+  .hero-inner .tagline{margin-left:auto; margin-right:auto;}
+  .hero-inner .cta-row{justify-content:center;}
+  @media (max-width:640px){ .hero{min-height:78vh;} }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
   }
-  .hero-name em { font-style: italic; color: var(--gold-soft); }
-  .hero-tag {
-    margin-top: 28px; font-size: clamp(.95rem, 2vw, 1.12rem);
-    color: var(--ink-dim); font-weight: 300; letter-spacing: .04em;
-    max-width: 560px;
+  .hero h1{
+    font-size:clamp(48px,9vw,96px);
+    line-height:0.95;
+    color:var(--ivory);
   }
-  .hero-tag .dot { color: var(--gold); padding: 0 .55em; }
-  .hero-cta { margin-top: 46px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
-  .btn {
-    display: inline-block; text-decoration: none; font-size: .8rem;
-    letter-spacing: .24em; text-transform: uppercase; font-weight: 500;
-    padding: 15px 34px; border: 1px solid var(--gold);
-    transition: background .35s, color .35s, transform .35s;
+  .hero .tagline{
+    max-width:520px;
+    font-size:18px;
+    color:rgba(243,236,219,0.75);
+    margin-top:22px;
   }
-  .btn-solid { background: var(--gold); color: #14110a; }
-  .btn-solid:hover { background: var(--gold-soft); transform: translateY(-2px); }
-  .btn-ghost { color: var(--gold-soft); }
-  .btn-ghost:hover { background: rgba(212,175,55,.1); transform: translateY(-2px); }
+  .cta-row{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:13px 26px;
+    border-radius:2px;
+    font-size:14px;
+    letter-spacing:0.02em;
+    text-decoration:none;
+    transition:transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{background:var(--gold); color:var(--ink); font-weight:600;}
+  .btn-primary:hover{background:#dcb62f;}
+  .btn-ghost{border:1px solid var(--line); color:var(--ivory);}
+  .btn-ghost:hover{border-color:var(--gold);}
+  .btn:hover{transform:translateY(-1px);}
 
-  /* piano keys strip at hero base */
-  .keys {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 88px; display: flex; opacity: .5;
-    -webkit-mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
-  }
-  .keys .white {
-    flex: 1; border-left: 1px solid rgba(255,255,255,.10);
-    background: linear-gradient(to bottom, rgba(255,255,255,.028), rgba(255,255,255,.07));
-    position: relative;
-  }
-  .keys .white.has-black::after {
-    content: ""; position: absolute; top: 0; right: -12%;
-    width: 55%; height: 56%; background: #05060a; z-index: 2;
-    box-shadow: 0 2px 6px rgba(0,0,0,.6);
-  }
-  .keys .white.lit { animation: keyGlow 7s ease-in-out infinite; }
-  @keyframes keyGlow {
-    0%, 100% { background: linear-gradient(to bottom, rgba(255,255,255,.028), rgba(255,255,255,.07)); }
-    50% { background: linear-gradient(to bottom, rgba(212,175,55,.05), rgba(212,175,55,.22)); }
-  }
-
-  /* ---------- Sections ---------- */
-  section { padding: 110px 0; }
-  .sec-label {
-    font-size: .74rem; letter-spacing: .44em; text-transform: uppercase;
-    color: var(--gold); font-weight: 400; margin-bottom: 16px;
-  }
-  .sec-title {
-    font-family: var(--serif); font-weight: 500;
-    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12;
-    margin-bottom: 22px;
-  }
-  .sec-title em { font-style: italic; color: var(--gold-soft); }
-
-  /* reveal on scroll */
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
-  .reveal.in { opacity: 1; transform: none; }
+  /* ---------- Section headers ---------- */
+  .section-head{display:flex; align-items:baseline; gap:16px; margin-bottom:44px;}
+  .section-head .num{font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:13px;}
+  .section-head h2{font-size:clamp(28px,4vw,38px);}
+  .section-head .rule{flex:1; height:1px; background:var(--line);}
 
   /* ---------- About ---------- */
-  #about { background: var(--bg-soft); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
-  .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; }
-  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-  .about-text p { color: var(--ink-dim); margin-bottom: 18px; font-size: 1.02rem; }
-  .about-text p strong { color: var(--ink); font-weight: 400; }
-  .about-quote {
-    border-left: 2px solid var(--gold); padding: 6px 0 6px 26px;
-    font-family: var(--serif); font-style: italic; font-size: 1.5rem;
-    line-height: 1.45; color: var(--ink);
+  .about-grid{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start;}
+  @media (max-width:640px){ .about-grid{grid-template-columns:1fr;} }
+  .about-photo{
+    aspect-ratio:4/5;
+    width:100%;
+    object-fit:cover;
+    object-position:50% 20%;
+    filter:grayscale(0.3) contrast(1.05);
+    border:1px solid var(--line);
   }
-  .about-quote small {
-    display: block; margin-top: 14px; font-family: var(--sans);
-    font-style: normal; font-size: .75rem; letter-spacing: .3em;
-    text-transform: uppercase; color: var(--ink-faint);
-  }
-
-  /* stats strip */
-  .stats {
-    margin-top: 78px; display: grid;
-    grid-template-columns: repeat(4, 1fr); gap: 1px;
-    background: var(--line-soft); border: 1px solid var(--line-soft);
-  }
-  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-  .stat { background: var(--bg-soft); padding: 34px 20px; text-align: center; }
-  .stat b {
-    display: block; font-family: var(--serif); font-weight: 500;
-    font-size: 2.6rem; color: var(--gold-soft); line-height: 1.1;
-  }
-  .stat span {
-    font-size: .74rem; letter-spacing: .26em; text-transform: uppercase;
-    color: var(--ink-faint); font-weight: 400;
-  }
+  .about-text p{color:rgba(243,236,219,0.8); max-width:60ch;}
+  .about-text strong{color:var(--ivory);}
 
   /* ---------- Repertoire ---------- */
-  .rep-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 42px; }
-  .rep-search {
-    background: var(--bg-card); border: 1px solid var(--line-soft);
-    color: var(--ink); font-family: var(--sans); font-weight: 300;
-    padding: 13px 18px; font-size: .92rem; width: 280px; max-width: 100%;
-    outline: none; transition: border-color .3s;
+  .rep-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media (max-width:640px){ .rep-grid{grid-template-columns:1fr;} }
+  .rep-card{background:var(--ink); padding:32px;}
+  .rep-card .tag{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:10px; display:block;
   }
-  .rep-search:focus { border-color: var(--gold); }
-  .rep-search::placeholder { color: var(--ink-faint); }
+  .rep-card h3{font-size:21px; margin-bottom:12px;}
+  .rep-card ul{margin:0; padding:0; list-style:none; color:rgba(243,236,219,0.7); font-size:14.5px;}
+  .rep-card li{padding:6px 0; border-top:1px solid var(--line);}
+  .rep-card li:first-child{border-top:none;}
 
-  .rep-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 38px; }
-  .chip {
-    background: transparent; border: 1px solid var(--line-soft);
-    color: var(--ink-dim); font-family: var(--sans); font-weight: 400;
-    font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
-    padding: 10px 20px; cursor: pointer; transition: all .3s;
+  /* ---------- Videos ---------- */
+  .video-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  @media (max-width:640px){ .video-grid{grid-template-columns:1fr;} }
+  .video-card{border:1px solid var(--line);}
+  .video-frame{aspect-ratio:16/9; width:100%; background:#000; display:block;}
+  .video-placeholder{
+    aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+    border:1px dashed var(--line); color:rgba(243,236,219,0.4);
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; text-align:center; padding:20px;
   }
-  .chip:hover { border-color: var(--gold); color: var(--gold-soft); }
-  .chip.active { background: var(--gold); border-color: var(--gold); color: #14110a; font-weight: 500; }
-  .chip .n { opacity: .55; margin-left: 6px; font-size: .72rem; }
-
-  .rep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
-  .song {
-    background: var(--bg-card); border: 1px solid var(--line-soft);
-    padding: 22px 24px; position: relative; overflow: hidden;
-    transition: border-color .3s, transform .3s;
+  .video-link{
+    position:relative; display:block; aspect-ratio:16/9; width:100%;
+    text-decoration:none; overflow:hidden;
   }
-  .song:hover { border-color: var(--line); transform: translateY(-3px); }
-  .song::before {
-    content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-    background: var(--gold); opacity: 0; transition: opacity .3s;
+  .video-thumb{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(0.25) brightness(0.85);}
+  .video-play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:56px; height:56px; border-radius:50%;
+    background:rgba(14,33,29,0.75); border:1px solid var(--gold);
+    color:var(--gold); font-size:20px; display:flex; align-items:center; justify-content:center;
+    transition:background 0.2s ease, transform 0.2s ease;
   }
-  .song:hover::before { opacity: 1; }
-  .song h3 { font-family: var(--serif); font-weight: 600; font-size: 1.28rem; line-height: 1.2; margin-bottom: 4px; }
-  .song .artist { font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-soft); font-weight: 400; margin-bottom: 12px; }
-  .song .note { font-size: .88rem; color: var(--ink-dim); line-height: 1.55; margin-bottom: 16px; }
-  .song .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .badge {
-    font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
-    padding: 4px 11px; border: 1px solid var(--line-soft); color: var(--ink-faint); font-weight: 400;
+  .video-link:hover .video-play{background:var(--gold); color:var(--ink); transform:translate(-50%,-50%) scale(1.08);}
+  .video-caption{padding:14px 16px; font-size:14px; color:rgba(243,236,219,0.75);}
+  .video-tag{
+    display:block;
+    font-family:'JetBrains Mono',monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:4px;
   }
-  .badge.lv-easy { border-color: rgba(126,166,120,.4); color: #a3c69d; }
-  .badge.lv-medium { border-color: rgba(212,175,55,.45); color: var(--gold-soft); }
-  .badge.lv-advanced { border-color: rgba(196,110,110,.45); color: #d99a9a; }
-  .rep-empty { text-align: center; color: var(--ink-faint); padding: 60px 0; font-style: italic; font-family: var(--serif); font-size: 1.2rem; display: none; }
-  .rep-count { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); }
-
-  /* ---------- Signature ---------- */
-  #signature { background: var(--bg-soft); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); position: relative; overflow: hidden; }
-  #signature::before {
-    content: "♪"; position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
-    font-size: 30rem; color: rgba(212,175,55,.035); line-height: 1; pointer-events: none;
-    font-family: var(--serif);
-  }
-  .sig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 54px; }
-  @media (max-width: 820px) { .sig-grid { grid-template-columns: 1fr; } }
-  .sig-card { background: var(--bg-card); border: 1px solid var(--line-soft); padding: 36px 30px; transition: border-color .3s, transform .3s; }
-  .sig-card:hover { border-color: var(--line); transform: translateY(-4px); }
-  .sig-card .glyph { font-family: var(--serif); font-size: 2rem; color: var(--gold); margin-bottom: 18px; }
-  .sig-card h3 { font-family: var(--serif); font-weight: 600; font-size: 1.45rem; margin-bottom: 12px; }
-  .sig-card p { font-size: .92rem; color: var(--ink-dim); }
-
-  /* ---------- Services ---------- */
-  .svc-list { margin-top: 50px; border-top: 1px solid var(--line-soft); }
-  .svc {
-    display: grid; grid-template-columns: 90px 1fr auto; gap: 30px;
-    align-items: baseline; padding: 34px 6px;
-    border-bottom: 1px solid var(--line-soft); transition: background .3s;
-  }
-  .svc:hover { background: rgba(212,175,55,.03); }
-  @media (max-width: 640px) { .svc { grid-template-columns: 1fr; gap: 8px; } }
-  .svc .num { font-family: var(--serif); font-size: 1.1rem; color: var(--gold); font-style: italic; }
-  .svc h3 { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; margin-bottom: 6px; }
-  .svc p { color: var(--ink-dim); font-size: .95rem; max-width: 560px; }
-  .svc .dur { font-size: .74rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
 
   /* ---------- Contact ---------- */
-  #contact { text-align: center; padding-bottom: 130px; }
-  #contact .sec-label { margin-bottom: 20px; }
-  #contact .sec-title { margin-bottom: 18px; }
-  #contact p.lead { color: var(--ink-dim); max-width: 520px; margin: 0 auto 44px; }
-  .contact-mail {
-    font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 2.2rem);
-    color: var(--gold-soft); text-decoration: none; font-style: italic;
-    border-bottom: 1px solid var(--line); padding-bottom: 6px;
-    transition: color .3s, border-color .3s;
-  }
-  .contact-mail:hover { color: var(--gold); border-color: var(--gold); }
+  .contact-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; align-items:flex-end;}
+  .contact-list{list-style:none; margin:0; padding:0;}
+  .contact-list li{padding:8px 0; border-bottom:1px solid var(--line); font-size:15px;}
+  .contact-list .label{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:2px;}
 
-  footer {
-    border-top: 1px solid var(--line-soft); padding: 34px 24px;
-    text-align: center; font-size: .74rem; letter-spacing: .22em;
-    text-transform: uppercase; color: var(--ink-faint);
+  footer{padding:36px 0; border-top:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:12px; color:rgba(243,236,219,0.4); text-align:center;}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
   }
-  footer span { color: var(--gold); }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="nav-inner">
-    <a class="nav-logo" href="#top">Amine<span>.</span></a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#repertoire">Repertoire</a>
-      <a href="#signature">Signature</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
+<div class="keystrip" id="topKeys"></div>
+
+<header class="hero">
+  <img class="hero-photo" src="assets/hero.jpg" alt="Aminote at the grand piano">
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Pianist</p>
+    <h1>Aminote</h1>
+    <p class="tagline">Live piano for hotel lounges, restaurants and private events — jazz standards, sentimental classics, and Andalusian-flavored sets built for a room, not a recital hall.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#videos">Watch &amp; listen</a>
+      <a class="btn btn-ghost" href="#contact">Book / contact</a>
     </div>
   </div>
-</nav>
-
-<header id="top">
-  <div class="hero-eyebrow">Jazz &nbsp;·&nbsp; Lounge &nbsp;·&nbsp; Andalusian</div>
-  <h1 class="hero-name">Amine<br><em>Pianist</em></h1>
-  <p class="hero-tag">
-    Live piano for hotels, restaurants &amp; private events
-    <span class="dot">·</span> from timeless jazz standards to the melodies of Andalusia
-  </p>
-  <div class="hero-cta">
-    <a class="btn btn-solid" href="#repertoire">Explore the Repertoire</a>
-    <a class="btn btn-ghost" href="#contact">Book an Evening</a>
-  </div>
-  <div class="keys" aria-hidden="true" id="keys"></div>
 </header>
 
-<section id="about">
-  <div class="wrap">
+<div class="keystrip"></div>
+
+<div class="wrap">
+
+  <section id="about">
+    <div class="section-head"><span class="num">01</span><h2>About</h2><span class="rule"></span></div>
     <div class="about-grid">
-      <div class="about-text reveal">
-        <div class="sec-label">About</div>
-        <h2 class="sec-title">Music that turns a room<br>into a <em>moment</em></h2>
-        <p>
-          I'm Amine, a pianist specialising in <strong>hotel lounge and dinner performance</strong> —
-          the art of reading a room and giving it exactly the atmosphere it needs. An intimate
-          ballad while couples dine. A bossa nova as the evening warms up. A standard everyone
-          recognises within two bars.
-        </p>
-        <p>
-          My repertoire spans over <strong>80 pieces</strong> across five worlds: classic jazz
-          standards, sentimental favourites, modern lounge, and — what makes my performances
-          unlike anyone else's — the <strong>Andalusian and Arabic songbook</strong>, played with
-          a jazz pianist's touch.
-        </p>
-      </div>
-      <div class="reveal">
-        <blockquote class="about-quote">
-          "From Gershwin to Fairuz — a bridge between two golden ages of melody, at one piano."
-          <small>The signature of every set</small>
-        </blockquote>
+      <img class="about-photo" src="assets/about.jpg" alt="Aminote performing at the keyboard">
+      <div class="about-text">
+        <p><strong>Aminote</strong> is a pianist playing for hotel lounges, restaurants, and private functions. The set list is built around what a room actually wants to hear while it eats, talks, and relaxes: warm jazz standards, familiar sentimental pieces, and smooth lounge material — plus Andalusian and Arabic-flavored pieces that most touring lounge pianists don't carry, giving venues something locally distinctive.</p>
       </div>
     </div>
+  </section>
 
-    <div class="stats reveal">
-      <div class="stat"><b>83</b><span>Songs ready</span></div>
-      <div class="stat"><b>5</b><span>Styles &amp; moods</span></div>
-      <div class="stat"><b>4h</b><span>Full set length</span></div>
-      <div class="stat"><b>∞</b><span>Requests welcome</span></div>
+  <section id="repertoire">
+    <div class="section-head"><span class="num">02</span><h2>Repertoire</h2><span class="rule"></span></div>
+    <div class="rep-grid">
+      <div class="rep-card">
+        <span class="tag">Set 01</span>
+        <h3>Jazz Standards</h3>
+        <ul>
+          <li>Fly Me to the Moon</li>
+          <li>Autumn Leaves</li>
+          <li>The Girl from Ipanema</li>
+          <li>Take Five</li>
+          <li>Summertime</li>
+          <li>Misty</li>
+          <li>All of Me</li>
+          <li>My Funny Valentine</li>
+          <li>Blue Moon</li>
+          <li>Georgia on My Mind</li>
+        </ul>
+      </div>
+      <div class="rep-card">
+        <span class="tag">Set 02</span>
+        <h3>Sentimental Classics</h3>
+        <ul>
+          <li>Unchained Melody</li>
+          <li>Can't Help Falling in Love</li>
+          <li>What a Wonderful World</li>
+          <li>Moon River</li>
+          <li>The Way You Look Tonight</li>
+          <li>At Last</li>
+          <li>Your Song</li>
+          <li>Perfect</li>
+          <li>Somewhere Over the Rainbow</li>
+          <li>La Vie en Rose</li>
+        </ul>
+      </div>
+      <div class="rep-card">
+        <span class="tag">Set 03</span>
+        <h3>Smooth Lounge</h3>
+        <ul>
+          <li>River Flows in You</li>
+          <li>A Thousand Years</li>
+          <li>Comptine d'un autre été</li>
+          <li>Clair de Lune</li>
+          <li>Nuvole Bianche</li>
+          <li>Married Life</li>
+          <li>Interstellar (Main Theme)</li>
+          <li>Yesterday</li>
+          <li>Someone Like You</li>
+          <li>Photograph</li>
+        </ul>
+      </div>
+      <div class="rep-card">
+        <span class="tag">Set 04 — Signature</span>
+        <h3>Andalusian &amp; Arabic-Flavored</h3>
+        <ul>
+          <li>Traditional Andalusian pieces</li>
+          <li>Arabic classics, piano arrangement</li>
+          <li>Original / improvised maqam-inspired</li>
+          <li>Lamma Bada Yatathanna</li>
+          <li>Ya Rayah</li>
+          <li>Enta Omri</li>
+          <li>Nassam Alayna El Hawa</li>
+          <li>Fakkarouni</li>
+          <li>Longa Nahawand</li>
+          <li>Samai Bayati</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="repertoire">
-  <div class="wrap">
-    <div class="rep-head reveal">
-      <div>
-        <div class="sec-label">Repertoire</div>
-        <h2 class="sec-title" style="margin-bottom:10px">The <em>songbook</em></h2>
-        <div class="rep-count" id="repCount"></div>
-      </div>
-      <input class="rep-search" id="repSearch" type="search" placeholder="Search a song or artist…" aria-label="Search repertoire">
-    </div>
-    <div class="rep-filters reveal" id="repFilters"></div>
-    <div class="rep-grid" id="repGrid"></div>
-    <div class="rep-empty" id="repEmpty">No songs match — but requests are always welcome.</div>
-  </div>
-</section>
+  <section id="videos">
+    <div class="section-head"><span class="num">03</span><h2>Watch &amp; Listen</h2><span class="rule"></span></div>
+    <!--
+      HOW TO ADD YOUR VIDEOS:
 
-<section id="signature">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="sec-label">Signature</div>
-      <h2 class="sec-title">Two traditions,<br>one <em>piano</em></h2>
-      <p style="color:var(--ink-dim); max-width:640px">
-        Most lounge pianists play the standards. Very few can follow "Misty" with
-        "Lamma Bada Yatathanna", or slip from Cole Porter into a Hijaz improvisation.
-        This is the sound of Morocco meeting Manhattan — and it stops people mid-conversation.
-      </p>
-    </div>
-    <div class="sig-grid">
-      <div class="sig-card reveal">
-        <div class="glyph">I</div>
-        <h3>The American Songbook</h3>
-        <p>Gershwin, Porter, Mancini, Brubeck — the standards that built the golden age of the piano bar, played with warmth and swing.</p>
-      </div>
-      <div class="sig-card reveal">
-        <div class="glyph">II</div>
-        <h3>The Arabic Golden Age</h3>
-        <p>Om Kalthoum, Fairuz, Abdel Halim Hafez — melodies beloved across the Arab world, re-imagined as elegant solo piano.</p>
-      </div>
-      <div class="sig-card reveal">
-        <div class="glyph">III</div>
-        <h3>Andalusian Improvisation</h3>
-        <p>Live improvisation in Hijaz and Rast maqam, rooted in Moroccan tradition — a sound no other lounge pianist can offer.</p>
-      </div>
-    </div>
-  </div>
-</section>
+      1) Local file: put an .mp4 in the /videos folder of this repo, then replace a
+         placeholder's <div class="video-placeholder">...</div> with
+         <video class="video-frame" controls src="videos/yourfile.mp4"></video>
 
-<section id="services">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="sec-label">Services</div>
-      <h2 class="sec-title">An evening, <em>arranged</em></h2>
-    </div>
-    <div class="svc-list">
-      <div class="svc reveal">
-        <div class="num">No. 1</div>
-        <div>
-          <h3>Hotel Lounge &amp; Dinner Service</h3>
-          <p>Residencies and regular evenings — 25–30 songs per three-hour set, paced to the room, from aperitif to last coffee.</p>
-        </div>
-        <div class="dur">2–4 hours</div>
+      2) YouTube (recommended): use a clickable thumbnail —
+         <a class="video-frame video-link" href="https://youtube.com/shorts/VIDEO_ID" target="_blank" rel="noopener">
+           <img class="video-thumb" src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg" alt="">
+           <span class="video-play">&#9654;</span>
+         </a>
+    -->
+    <div class="video-grid">
+      <div class="video-card">
+        <a class="video-frame video-link" href="https://youtube.com/shorts/emjgLEVMh7o" target="_blank" rel="noopener">
+          <img class="video-thumb" src="https://img.youtube.com/vi/emjgLEVMh7o/hqdefault.jpg" alt="Performance clip thumbnail">
+          <span class="video-play">▶</span>
+        </a>
+        <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
       </div>
-      <div class="svc reveal">
-        <div class="num">No. 2</div>
-        <div>
-          <h3>Private Events &amp; Weddings</h3>
-          <p>Cocktail receptions, dinners and celebrations — a bespoke programme built around your guests, with requests woven in live.</p>
-        </div>
-        <div class="dur">Bespoke</div>
+      <div class="video-card">
+        <div class="video-placeholder">Video slot 2<br>Performance</div>
+        <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
       </div>
-      <div class="svc reveal">
-        <div class="num">No. 3</div>
-        <div>
-          <h3>Special Occasions &amp; Requests</h3>
-          <p>Birthdays in jazz arrangement, Italian classics, Latin ballads — festive moments handled with elegance, never karaoke.</p>
-        </div>
-        <div class="dur">On the night</div>
+      <div class="video-card">
+        <div class="video-placeholder">Video slot 3<br>Solo</div>
+        <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
+      </div>
+      <div class="video-card">
+        <div class="video-placeholder">Video slot 4<br>Solo</div>
+        <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact">
-  <div class="wrap reveal">
-    <div class="sec-label">Contact</div>
-    <h2 class="sec-title">Let's set the <em>mood</em></h2>
-    <p class="lead">For bookings, residencies and enquiries — write to me and tell me about your venue and your evening.</p>
-    <a class="contact-mail" href="mailto:amineshady6@gmail.com">amineshady6@gmail.com</a>
-  </div>
-</section>
+  <section id="contact">
+    <div class="section-head"><span class="num">04</span><h2>Contact</h2><span class="rule"></span></div>
+    <div class="contact-grid">
+      <ul class="contact-list">
+        <li><span class="label">Email</span>amineshady6@gmail.com</li>
+        <li><span class="label">Phone</span>— add number —</li>
+        <li><span class="label">Available for</span>Hotel &amp; restaurant residencies, private events</li>
+      </ul>
+      <a class="btn btn-primary" href="mailto:amineshady6@gmail.com">Send a message</a>
+    </div>
+  </section>
 
-<footer>
-  Amine <span>·</span> Jazz &amp; Lounge Pianist <span>·</span> Est. MMXXVI
-</footer>
+</div>
+
+<footer>Aminote — Piano</footer>
 
 <script>
-/* ---------------- Repertoire data ---------------- */
-const SONGS = [
-  // Jazz Standards
-  ["Fly Me to the Moon","Frank Sinatra","Perfect opener — guests recognise it in two seconds.","Easy","jazz"],
-  ["Autumn Leaves","Jazz Standard","Minor key, melancholic. Great for quieter moments.","Easy","jazz"],
-  ["The Girl from Ipanema","Jobim","Bossa nova feel — elegant and effortlessly cool.","Easy","jazz"],
-  ["Misty","Erroll Garner","The most requested jazz ballad in lounges worldwide.","Easy","jazz"],
-  ["Summertime","Gershwin","Works as a slow ballad or a swing groove.","Medium","jazz"],
-  ["What a Wonderful World","Louis Armstrong","Warm and universally loved — tourists adore this one.","Easy","jazz"],
-  ["Feeling Good","Nina Simone","Powerful mid-set moment. Build dynamics gradually.","Medium","jazz"],
-  ["Moon River","Henry Mancini","Slow waltz feel — very elegant for a hotel setting.","Easy","jazz"],
-  ["Cheek to Cheek","Fred Astaire","Upbeat classic. Adds a light swing energy to the set.","Medium","jazz"],
-  ["Take Five","Dave Brubeck","Iconic 5/4 groove. Even non-jazz fans recognise it.","Medium","jazz"],
-  ["Georgia on My Mind","Ray Charles","Soulful and slow. Stunning as a solo piano ballad.","Easy","jazz"],
-  ["My Funny Valentine","Jazz Standard","Tender and intimate. Great for a romantic atmosphere.","Easy","jazz"],
-  ["Blue in Green","Miles Davis","Minimal and atmospheric. Fills silence beautifully.","Medium","jazz"],
-  ["All the Things You Are","Jerome Kern","Jazz classic with beautiful chord movement.","Medium","jazz"],
-  ["The Way You Look Tonight","Sinatra / Astaire","Old Hollywood charm. Perfect for couples dining.","Easy","jazz"],
-  ["Speak Softly Love","Godfather Theme","Immediately recognisable. Guests love a film classic.","Easy","jazz"],
-  ["Night and Day","Cole Porter","Elegant standard with a flowing melodic line.","Medium","jazz"],
-  ["La La Means I Love You","Jazz Ballad","Warm and smooth — pairs well after an uptempo piece.","Easy","jazz"],
-  ["Someone to Watch Over Me","Gershwin","Tender ballad. Hotel guests often request this.","Easy","jazz"],
-  ["Body and Soul","Jazz Standard","One of the most beautiful jazz melodies ever written.","Medium","jazz"],
-  // Sentimental Classics
-  ["Stand By Me","Ben E. King","Simple chord loop, iconic melody. Slows beautifully.","Easy","sentimental"],
-  ["Can't Help Falling in Love","Elvis Presley","Waltz in 3/4. One of the best solo piano hotel songs.","Easy","sentimental"],
-  ["La Vie en Rose","Édith Piaf","French, romantic — European guests will adore it.","Easy","sentimental"],
-  ["Hallelujah","Leonard Cohen","Played slow and minimal — let silence do the work.","Easy","sentimental"],
-  ["Unchained Melody","Righteous Brothers","Stops people mid-conversation to listen.","Easy","sentimental"],
-  ["My Heart Will Go On","Céline Dion","Extremely recognisable. Emotional closer for a set.","Easy","sentimental"],
-  ["Yesterday","The Beatles","The piano version is stunning — one of the greatest melodies.","Easy","sentimental"],
-  ["Let It Be","The Beatles","Peaceful and familiar. Universally comforting.","Easy","sentimental"],
-  ["Imagine","John Lennon","Simple and profound. Always lands perfectly.","Easy","sentimental"],
-  ["Wonderful Tonight","Eric Clapton","Couples love this — great for dinner service.","Easy","sentimental"],
-  ["She","Elvis Costello","Elegant French-flavoured ballad. Sophisticated feel.","Easy","sentimental"],
-  ["The Rose","Bette Midler","Emotional and gentle. Works beautifully solo on piano.","Easy","sentimental"],
-  ["Time After Time","Cyndi Lauper","Quiet and bittersweet. A lovely slower moment.","Easy","sentimental"],
-  ["Fields of Gold","Sting","Warm and pastoral. Guests drift into it naturally.","Easy","sentimental"],
-  ["Every Breath You Take","The Police","The minimalist piano version is hauntingly beautiful.","Easy","sentimental"],
-  ["Killing Me Softly","Roberta Flack","Soulful and smooth — fits perfectly in a lounge.","Easy","sentimental"],
-  ["Eternal Flame","The Bangles","Gentle and romantic. Very popular with older guests.","Easy","sentimental"],
-  ["More Than Words","Extreme","Intimate feel. Works well in quieter moments.","Easy","sentimental"],
-  ["How Deep Is Your Love","Bee Gees","Timeless. The piano version is understated and elegant.","Easy","sentimental"],
-  ["Careless Whisper","George Michael","Iconic melody. Never fails to get a reaction.","Easy","sentimental"],
-  // Smooth Lounge / Modern
-  ["Perfect","Ed Sheeran","Every couple loves this — works brilliantly as solo piano.","Easy","modern"],
-  ["All of Me","John Legend","Written for piano — sounds natural and impressive.","Easy","modern"],
-  ["Skyfall","Adele","Cinematic. Impresses guests who don't know jazz.","Medium","modern"],
-  ["River Flows in You","Yiruma","Gentle ambient filler between heavier pieces.","Easy","modern"],
-  ["City of Stars","La La Land","Film fans will recognise and appreciate it.","Easy","modern"],
-  ["Comptine d'un autre été","Yann Tiersen","French film music — elegant and unique.","Medium","modern"],
-  ["A Thousand Years","Christina Perri","Romantic and flowing. A very popular request.","Easy","modern"],
-  ["Say Something","A Great Big World","Sparse and emotional — effective as a quiet moment.","Easy","modern"],
-  ["Someone Like You","Adele","Powerful ballad that draws attention in a room.","Easy","modern"],
-  ["Clocks","Coldplay","The iconic arpeggiated intro is instantly recognised.","Medium","modern"],
-  ["The Scientist","Coldplay","Melancholic and beautiful as a slow solo piano piece.","Easy","modern"],
-  ["Fix You","Coldplay","Builds from quiet to powerful — a great set arc.","Medium","modern"],
-  ["Chasing Cars","Snow Patrol","Minimal and dreamy. Works as soft background music.","Easy","modern"],
-  ["Let Her Go","Passenger","Chord-based and singable. Guests often hum along.","Easy","modern"],
-  ["Stay With Me","Sam Smith","Simple gospel-influenced ballad. Very recognisable.","Easy","modern"],
-  ["Thinking Out Loud","Ed Sheeran","Warm and romantic — great for dinner service moments.","Easy","modern"],
-  ["I Will Always Love You","Whitney Houston","Iconic melody. The subtle piano version is deeply moving.","Medium","modern"],
-  ["Un-break My Heart","Toni Braxton","Smooth R&B ballad that sits perfectly in a lounge set.","Medium","modern"],
-  ["Shallow","Lady Gaga","Modern classic — younger guests recognise it immediately.","Medium","modern"],
-  ["Experience","Ludovico Einaudi","Minimal contemporary classical. Sophisticated atmosphere.","Medium","modern"],
-  ["Nuvole Bianche","Ludovico Einaudi","Breathtaking and emotional. Perfect for a quiet room.","Medium","modern"],
-  ["Clair de Lune","Debussy","The most famous piano piece in the world. Always impresses.","Advanced","modern"],
-  ["Gymnopédie No. 1","Erik Satie","Slow and melancholic. Sets a deeply peaceful mood.","Easy","modern"],
-  // Andalusian / Arabic
-  ["Lamma Bada Yatathanna","Andalusian Classic","The most iconic muwashshah. Stops people in their tracks.","Medium","andalusian"],
-  ["Enta Omri","Om Kalthoum","The most recognised Arabic song. Even tourists feel its weight.","Medium","andalusian"],
-  ["Habibi Ya Nour El Ain","Amr Diab","Modern and lighter. Moroccan guests love this one.","Easy","andalusian"],
-  ["Ya Msafer Wahdak","Fairuz","Fairuz is beloved across the Arab world. A slow ballad.","Medium","andalusian"],
-  ["Nassam Alayna El Hawa","Fairuz","A lighter Fairuz classic. Beautiful melodic flow on piano.","Medium","andalusian"],
-  ["Andalusian Improvisation","Original","Live improvisation in Hijaz or Rast maqam — pure atmosphere.","Advanced","andalusian"],
-  ["Alf Leila Wa Leila","Om Kalthoum","Epic and cinematic. Even a short excerpt is powerful.","Advanced","andalusian"],
-  ["Ahwak","Abdel Halim Hafez","Egyptian classic. Slow, romantic, and instantly familiar.","Medium","andalusian"],
-  ["Gana El Hawa","Abdel Halim Hafez","Nostalgic and warm. Older guests will deeply appreciate it.","Medium","andalusian"],
-  ["Fi Youm Wi Leila","Om Kalthoum","Graceful and flowing. Works well as a lounge arrangement.","Medium","andalusian"],
-  ["Moroccan Chaabi Flavour","Original / Traditional","Rooted in Moroccan identity — a sound no other pianist can fake.","Medium","andalusian"],
-  ["Ya Tayr","Fairuz","Short and melodic. A good transition piece between styles.","Easy","andalusian"],
-  // Special Occasions
-  ["Happy Birthday (Jazz Arr.)","Traditional","Always requested. The jazz version sounds sophisticated.","Easy","occasions"],
-  ["La Bamba","Traditional","Light and festive. Can lift the energy in a quiet room.","Medium","occasions"],
-  ["O Sole Mio","Traditional Italian","Italian guests will love it. Grand and theatrical.","Easy","occasions"],
-  ["That's Amore","Dean Martin","Fun and light. Great for an upbeat moment in the set.","Easy","occasions"],
-  ["Bésame Mucho","Consuelo Velázquez","Latin jazz standard. Sultry and effortlessly elegant.","Easy","occasions"],
-  ["Historia de un Amor","Latin Standard","Romantic Spanish ballad — lovely for couples.","Easy","occasions"],
-  ["Volare","Domenico Modugno","Italian classic. Instantly cheerful and charming.","Easy","occasions"],
-  ["New York, New York","Frank Sinatra","The great closer. Guests associate it with a big finish.","Medium","occasions"],
-];
-
-const CATS = [
-  ["all", "All"],
-  ["jazz", "Jazz Standards"],
-  ["sentimental", "Sentimental Classics"],
-  ["modern", "Smooth Lounge / Modern"],
-  ["andalusian", "Andalusian / Arabic"],
-  ["occasions", "Special Occasions"],
-];
-
-const grid = document.getElementById("repGrid");
-const filters = document.getElementById("repFilters");
-const search = document.getElementById("repSearch");
-const empty = document.getElementById("repEmpty");
-const countEl = document.getElementById("repCount");
-let activeCat = "all";
-
-CATS.forEach(([id, label]) => {
-  const n = id === "all" ? SONGS.length : SONGS.filter(s => s[4] === id).length;
-  const b = document.createElement("button");
-  b.className = "chip" + (id === "all" ? " active" : "");
-  b.innerHTML = `${label}<span class="n">${n}</span>`;
-  b.onclick = () => {
-    activeCat = id;
-    filters.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-    b.classList.add("active");
-    render();
-  };
-  filters.appendChild(b);
-});
-
-function render() {
-  const q = search.value.trim().toLowerCase();
-  grid.innerHTML = "";
-  let shown = 0;
-  SONGS.forEach(([title, artist, note, level, cat]) => {
-    if (activeCat !== "all" && cat !== activeCat) return;
-    if (q && !(title + " " + artist + " " + note).toLowerCase().includes(q)) return;
-    shown++;
-    const catLabel = CATS.find(c => c[0] === cat)[1];
-    const el = document.createElement("article");
-    el.className = "song";
-    el.innerHTML = `
-      <h3></h3>
-      <div class="artist"></div>
-      <p class="note"></p>
-      <div class="meta">
-        <span class="badge lv-${level.toLowerCase()}">${level}</span>
-        <span class="badge">${catLabel}</span>
-      </div>`;
-    el.querySelector("h3").textContent = title;
-    el.querySelector(".artist").textContent = artist;
-    el.querySelector(".note").textContent = note;
-    grid.appendChild(el);
-  });
-  empty.style.display = shown ? "none" : "block";
-  countEl.textContent = shown + " of " + SONGS.length + " songs";
-}
-search.addEventListener("input", render);
-render();
-
-/* ---------------- Piano keys strip ---------------- */
-const keys = document.getElementById("keys");
-const blackPattern = [1, 1, 0, 1, 1, 1, 0]; // C D E F G A B → has black key to the right?
-for (let i = 0; i < 28; i++) {
-  const k = document.createElement("div");
-  k.className = "white" + (blackPattern[i % 7] ? " has-black" : "");
-  if (Math.random() < 0.28) {
-    k.classList.add("lit");
-    k.style.animationDelay = (Math.random() * 7).toFixed(2) + "s";
-  }
-  keys.appendChild(k);
-}
-
-/* ---------------- Nav + reveal ---------------- */
-const nav = document.getElementById("nav");
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
-
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  // Build the top keystrip: a simple repeating white/black key pattern.
+  (function(){
+    const strip = document.getElementById('topKeys');
+    const pattern = ['w','w','b','w','b','w','w','b','w','b','w','b'];
+    const total = 48;
+    for(let i=0;i<total;i++){
+      const p = pattern[i % pattern.length];
+      const k = document.createElement('div');
+      k.className = 'key' + (p==='b' ? ' black' : '');
+      strip.appendChild(k);
+    }
+  })();
 </script>
+
 </body>
 </html>
