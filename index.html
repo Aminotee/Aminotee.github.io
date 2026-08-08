@@ -155,10 +155,11 @@
   .rep-card li:first-child{border-top:none;}
 
   /* ---------- Videos ---------- */
-  .video-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .video-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; align-items:start;}
   @media (max-width:640px){ .video-grid{grid-template-columns:1fr;} }
+  .video-col{display:grid; gap:24px; align-content:start;}
   .video-card{border:1px solid var(--line);}
-  .video-frame{aspect-ratio:16/9; width:100%; background:#000; display:block;}
+  .video-frame{width:100%; height:auto; background:#000; display:block;}
   .video-placeholder{
     aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
     border:1px dashed var(--line); color:rgba(243,236,219,0.4);
@@ -316,21 +317,25 @@
          </a>
     -->
     <div class="video-grid">
-      <div class="video-card">
-        <video class="video-frame" controls preload="metadata" playsinline poster="assets/perfm1-poster.jpg" src="videos/perfm1.mp4"></video>
-        <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
+      <div class="video-col">
+        <div class="video-card">
+          <video class="video-frame" style="aspect-ratio:1080/1920" controls preload="metadata" playsinline poster="assets/perfm1-poster.jpg" src="videos/perfm1.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
+        </div>
+        <div class="video-card">
+          <video class="video-frame" style="aspect-ratio:1080/856" controls preload="metadata" playsinline poster="assets/solos2-poster.jpg" src="videos/solos2.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Duo</span>Piano &amp; violin</p>
+        </div>
       </div>
-      <div class="video-card">
-        <video class="video-frame" controls preload="metadata" playsinline poster="assets/perf-poster.jpg" src="videos/perf.mp4"></video>
-        <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
-      </div>
-      <div class="video-card">
-        <video class="video-frame" controls preload="metadata" playsinline poster="assets/solos1-poster.jpg" src="videos/solos1.mp4"></video>
-        <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
-      </div>
-      <div class="video-card">
-        <video class="video-frame" controls preload="metadata" playsinline poster="assets/solos2-poster.jpg" src="videos/solos2.mp4"></video>
-        <p class="video-caption"><span class="video-tag">Duo</span>Piano &amp; violin</p>
+      <div class="video-col">
+        <div class="video-card">
+          <video class="video-frame" style="aspect-ratio:1080/1422" controls preload="metadata" playsinline poster="assets/solos1-poster.jpg" src="videos/solos1.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
+        </div>
+        <div class="video-card">
+          <video class="video-frame" style="aspect-ratio:1080/1060" controls preload="metadata" playsinline poster="assets/perf-poster.jpg" src="videos/perf.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
+        </div>
       </div>
     </div>
   </section>
