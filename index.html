@@ -143,28 +143,37 @@
   }
   .btn-ghost:hover{border-color:rgba(232,169,92,0.5); transform:translateY(-2px);}
 
-  /* ---------- Piano motif (decorative) ---------- */
-  .hero-keys{
-    position:absolute; left:0; right:0; bottom:0; height:92px;
-    z-index:1; pointer-events:none;
-    -webkit-mask-image:linear-gradient(90deg, transparent, #000 18% 82%, transparent);
-    mask-image:linear-gradient(90deg, transparent, #000 18% 82%, transparent);
+  /* ---------- Piano key light effect ---------- */
+  .hero-light{
+    position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden;
+    -webkit-mask-image:linear-gradient(180deg, transparent 4%, #000 40%, #000 78%, transparent);
+    mask-image:linear-gradient(180deg, transparent 4%, #000 40%, #000 78%, transparent);
   }
-  .hero-keys::before{ /* white key separators */
-    content:""; position:absolute; inset:0;
-    background:repeating-linear-gradient(90deg, rgba(242,237,228,0.20) 0 1px, transparent 1px 46px);
-    -webkit-mask-image:linear-gradient(180deg, transparent, #000 80%);
-    mask-image:linear-gradient(180deg, transparent, #000 80%);
-  }
-  .hero-keys::after{ /* black keys, glowing faintly */
-    content:""; position:absolute; left:0; right:0; bottom:0; height:54%;
+  .hero-light::before{
+    /* shafts of ivory light in a white-key / black-key rhythm */
+    content:""; position:absolute; top:-12%; bottom:-12%; left:-120px; right:-120px;
     background:repeating-linear-gradient(90deg,
-      rgba(232,169,92,0.10) 0 7px, transparent 7px 39px, rgba(232,169,92,0.10) 39px 46px);
-    -webkit-mask-image:linear-gradient(180deg, transparent, #000 85%);
-    mask-image:linear-gradient(180deg, transparent, #000 85%);
+      rgba(255,241,216,0.085) 0px,  rgba(255,241,216,0.085) 52px,   /* white key light */
+      rgba(255,241,216,0.015) 52px, rgba(255,241,216,0.015) 60px,
+      rgba(5,6,8,0.42) 60px,        rgba(5,6,8,0.42) 74px,          /* black key shadow */
+      rgba(255,241,216,0.015) 74px, rgba(255,241,216,0.015) 82px);
+    filter:blur(10px);
+    animation:keydrift 60s linear infinite;
   }
-  .footer-keys{display:flex; justify-content:center; margin-bottom:16px;}
-  .footer-keys svg{display:block; opacity:0.75;}
+  .hero-light::after{
+    /* slow warm beam sweeping across the keys */
+    content:""; position:absolute; top:-12%; bottom:-12%; left:-45%; width:45%;
+    background:linear-gradient(90deg, transparent, rgba(255,206,140,0.13), transparent);
+    filter:blur(26px);
+    animation:keysweep 13s ease-in-out infinite;
+  }
+  @keyframes keydrift{ from{transform:translateX(0);} to{transform:translateX(82px);} }
+  @keyframes keysweep{
+    0%{left:-45%; opacity:0;}
+    18%{opacity:1;}
+    82%{opacity:1;}
+    100%{left:100%; opacity:0;}
+  }
 
   /* ---------- Section headers ---------- */
   .section-head{margin-bottom:44px;}
@@ -292,7 +301,7 @@
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    *{transition:none !important; animation:none !important;}
+    *, *::before, *::after{transition:none !important; animation:none !important;}
     .reveal{opacity:1; transform:none;}
   }
 </style>
@@ -323,7 +332,7 @@
       <a class="btn btn-ghost" href="#contact">Book an evening</a>
     </div>
   </div>
-  <div class="hero-keys" aria-hidden="true"></div>
+  <div class="hero-light" aria-hidden="true"></div>
 </header>
 
 <div class="wrap">
@@ -473,20 +482,7 @@
 
 </div>
 
-<footer>
-  <div class="footer-keys" aria-hidden="true">
-    <svg width="126" height="42" viewBox="0 0 126 42" fill="none">
-      <rect x="0.5" y="0.5" width="125" height="41" rx="6" stroke="rgba(242,237,228,0.22)"/>
-      <path d="M18.5 1v40M36.5 1v40M54.5 1v40M72.5 1v40M90.5 1v40M108.5 1v40" stroke="rgba(242,237,228,0.18)"/>
-      <rect x="12" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
-      <rect x="30" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
-      <rect x="66" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
-      <rect x="84" y="1" width="12" height="24" rx="2" fill="rgba(232,169,92,0.85)"/>
-      <rect x="102" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
-    </svg>
-  </div>
-  Aminotee <span>·</span> Piano
-</footer>
+<footer>Aminotee <span>·</span> Piano</footer>
 
 <script>
   const io = new IntersectionObserver(entries => {
