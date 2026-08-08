@@ -143,6 +143,28 @@
   }
   .btn-ghost:hover{border-color:rgba(232,169,92,0.5); transform:translateY(-2px);}
 
+  /* ---------- Piano keystrip ---------- */
+  .keystrip{
+    display:flex; height:64px; margin:10px 0;
+    border:1px solid var(--line); border-radius:16px;
+    background:rgba(255,255,255,0.025); overflow:hidden;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .pkey{
+    flex:1; position:relative; cursor:pointer;
+    border-right:1px solid rgba(255,255,255,0.06);
+    transition:background .4s ease;
+  }
+  .pkey:last-child{border-right:none;}
+  .pkey.lit, .pkey:hover{background:linear-gradient(180deg, transparent 20%, rgba(232,169,92,0.30));}
+  .pkey .bk{
+    position:absolute; top:0; right:-15%; width:30%; height:58%;
+    background:#050608; border-radius:0 0 4px 4px; z-index:2;
+    box-shadow:0 3px 8px rgba(0,0,0,0.65); cursor:pointer;
+    transition:background .4s ease, box-shadow .4s ease;
+  }
+  .pkey .bk.lit, .pkey .bk:hover{background:#33240f; box-shadow:0 0 14px rgba(232,169,92,0.4);}
+
   /* ---------- Section headers ---------- */
   .section-head{margin-bottom:44px;}
   .section-head .kicker{
@@ -304,6 +326,8 @@
 
 <div class="wrap">
 
+  <div class="keystrip" data-keystrip title="Go on — play a note" style="margin-top:34px;"></div>
+
   <section id="about">
     <div class="section-head reveal"><span class="kicker">01 — About</span><h2>Music for the room</h2></div>
     <div class="about-grid">
@@ -447,6 +471,8 @@
     </div>
   </section>
 
+  <div class="keystrip" data-keystrip title="Go on — play a note" style="margin-bottom:44px;"></div>
+
 </div>
 
 <footer>Aminotee <span>·</span> Piano</footer>
@@ -458,6 +484,70 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---------- Piano keystrips: glow like they're being played, sound on click ---------- */
+  (function(){
+    const strips = document.querySelectorAll('[data-keystrip]');
+    if (!strips.length) return;
+    const WHITE = [0,2,4,5,7,9,11];          // C major offsets within an octave
+    const HAS_BLACK = [1,1,0,1,1,1,0];       // sharp to the right of C D F G A
+    const WHITE_COUNT = 21;                  // three octaves
+    let ctx;
+
+    function play(midi){
+      try{
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
+        const f = 440 * Math.pow(2, (midi - 69) / 12);
+        const t = ctx.currentTime;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(0.22, t + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.4);
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass'; lp.frequency.value = 2400;
+        [[ 'sine', 1, 0.7 ], [ 'triangle', 2, 0.18 ]].forEach(([type, mult, vol]) => {
+          const o = ctx.createOscillator();
+          o.type = type; o.frequency.value = f * mult;
+          const g = ctx.createGain(); g.gain.value = vol;
+          o.connect(g); g.connect(lp);
+          o.start(t); o.stop(t + 1.5);
+        });
+        lp.connect(gain); gain.connect(ctx.destination);
+      }catch(e){}
+    }
+
+    function flash(el){
+      el.classList.add('lit');
+      setTimeout(() => el.classList.remove('lit'), 700);
+    }
+
+    strips.forEach(strip => {
+      const playable = [];
+      for (let i = 0; i < WHITE_COUNT; i++){
+        const oct = Math.floor(i / 7), deg = i % 7;
+        const midi = 48 + oct * 12 + WHITE[deg];   // start at C3
+        const k = document.createElement('div');
+        k.className = 'pkey';
+        k.addEventListener('pointerdown', e => { if (e.target === k){ play(midi); flash(k); } });
+        if (HAS_BLACK[deg] && i !== WHITE_COUNT - 1){
+          const b = document.createElement('div');
+          b.className = 'bk';
+          b.addEventListener('pointerdown', () => { play(midi + 1); flash(b); });
+          k.appendChild(b);
+          playable.push(b);
+        }
+        strip.appendChild(k);
+        playable.push(k);
+      }
+      // ambient auto-glow, as if someone is playing
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches){
+        setInterval(() => {
+          flash(playable[Math.floor(Math.random() * playable.length)]);
+        }, 1100 + Math.random() * 900);
+      }
+    });
+  })();
 </script>
 
 </body>
