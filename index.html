@@ -7,235 +7,356 @@
 <meta name="description" content="Aminote — pianist for hotel lounges, restaurants and private events. Jazz standards, sentimental classics, and Andalusian-flavored sets.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B9%3C/text%3E%3C/svg%3E">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
 
   :root{
-    --ink:#0E211D;
-    --teal:#123B3D;
-    --gold:#C9A227;
-    --parchment:#EDE6D3;
-    --burgundy:#7A2E2E;
-    --ivory:#F3ECDB;
-    --line: rgba(243,236,219,0.14);
+    --bg:#08090b;
+    --bg2:#0d0f12;
+    --glass:rgba(255,255,255,0.035);
+    --glass-hi:rgba(255,255,255,0.06);
+    --line:rgba(255,255,255,0.09);
+    --amber:#e8a95c;
+    --amber-hi:#ffc98a;
+    --glow:rgba(232,169,92,0.14);
+    --ink:#f2ede4;
+    --dim:rgba(242,237,228,0.62);
+    --faint:rgba(242,237,228,0.38);
+    --r:18px;
   }
 
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    margin:0;
-    background:var(--ink);
-    color:var(--ivory);
+    background:var(--bg);
+    color:var(--ink);
     font-family:'Inter',sans-serif;
-    line-height:1.6;
+    font-weight:300;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
-  h1,h2,h3{
-    font-family:'Fraunces',serif;
-    font-weight:500;
-    margin:0;
-  }
-  .mono{
-    font-family:'JetBrains Mono',monospace;
-    letter-spacing:0.04em;
-  }
+  ::selection{background:rgba(232,169,92,0.3);}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif; font-weight:500; line-height:1.1;}
   a{color:inherit;}
-  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:4px;}
 
-  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
-  section{padding:96px 0;}
-  @media (max-width:640px){ section{padding:64px 0;} }
+  /* ambient bar-light glows */
+  .ambient{position:fixed; inset:0; pointer-events:none; z-index:0;}
+  .ambient::before{
+    content:""; position:absolute; top:-220px; left:50%; transform:translateX(-50%);
+    width:900px; height:520px; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(232,169,92,0.10), transparent);
+  }
+  .ambient::after{
+    content:""; position:absolute; bottom:-260px; right:-180px;
+    width:700px; height:520px; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(120,90,200,0.07), transparent);
+  }
 
-  /* ---------- Keystrip signature element ---------- */
-  .keystrip{
-    display:flex;
-    height:22px;
-    width:100%;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+  section{padding:104px 0;}
+  @media (max-width:640px){ section{padding:68px 0;} }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed; top:16px; left:50%; transform:translateX(-50%);
+    z-index:50; width:min(1080px, calc(100% - 32px));
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 10px 10px 22px;
+    background:rgba(10,11,14,0.55);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border:1px solid var(--line); border-radius:999px;
   }
-  .keystrip .key{
-    flex:1;
-    border-right:1px solid var(--line);
-    background:transparent;
-    transition:background 0.25s ease;
+  .nav-logo{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px;
+    letter-spacing:0.08em; text-transform:uppercase; text-decoration:none;
   }
-  .keystrip .key:last-child{border-right:none;}
-  .keystrip .key.black{
-    background:rgba(0,0,0,0.35);
-    max-width:14px;
-    margin:0 -7px;
-    z-index:1;
-    height:60%;
+  .nav-logo span{color:var(--amber);}
+  .nav-links{display:flex; gap:4px; align-items:center;}
+  .nav-links a{
+    text-decoration:none; font-size:13px; color:var(--dim);
+    padding:8px 14px; border-radius:999px; transition:color .25s, background .25s;
   }
-  @media (hover:hover){
-    .keystrip .key:hover{background:var(--gold);}
+  .nav-links a:hover{color:var(--ink); background:var(--glass-hi);}
+  .nav-links a.nav-cta{
+    color:#161006; background:var(--amber); font-weight:500;
   }
+  .nav-links a.nav-cta:hover{background:var(--amber-hi);}
+  @media (max-width:720px){ .nav-links a:not(.nav-cta){display:none;} }
 
   /* ---------- Hero ---------- */
-  .hero{padding:0; overflow:hidden; position:relative; min-height:86vh; display:flex; align-items:flex-end;}
+  .hero{position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden;}
   .hero-photo{
     position:absolute; inset:0; width:100%; height:100%;
     object-fit:cover; object-position:50% 22%;
-    filter:grayscale(1) contrast(1.08) brightness(0.95);
+    filter:grayscale(1) contrast(1.06) brightness(0.9);
+    transform:scale(1.03);
   }
   .hero-overlay{
     position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(14,33,29,0.10) 0%, rgba(14,33,29,0.45) 45%, rgba(14,33,29,0.97) 92%);
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 100%, rgba(232,169,92,0.10), transparent 65%),
+      linear-gradient(180deg, rgba(8,9,11,0.35) 0%, rgba(8,9,11,0.62) 55%, var(--bg) 96%);
   }
-  .hero-inner{padding:64px 0 72px; position:relative; z-index:2; width:100%; text-align:center;}
-  .hero-inner .tagline{margin-left:auto; margin-right:auto;}
-  .hero-inner .cta-row{justify-content:center;}
-  @media (max-width:640px){ .hero{min-height:78vh;} }
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12.5px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--gold);
-    margin-bottom:18px;
+  .hero-inner{position:relative; z-index:2; width:100%; text-align:center; padding:0 24px 84px;}
+  .hero-pill{
+    display:inline-flex; align-items:center; gap:9px;
+    font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber-hi);
+    padding:9px 20px; border-radius:999px;
+    border:1px solid rgba(232,169,92,0.35);
+    background:rgba(232,169,92,0.07);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    margin-bottom:28px;
   }
+  .hero-pill::before{
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:var(--amber); box-shadow:0 0 10px 2px var(--glow);
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
   .hero h1{
-    font-size:clamp(48px,9vw,96px);
-    line-height:0.95;
-    color:var(--ivory);
+    font-size:clamp(56px,11vw,116px);
+    letter-spacing:-0.02em;
+    background:linear-gradient(180deg, #fdfaf4 30%, rgba(253,250,244,0.55));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
   }
   .hero .tagline{
-    max-width:520px;
-    font-size:18px;
-    color:rgba(243,236,219,0.75);
-    margin-top:22px;
+    max-width:540px; margin:20px auto 0;
+    font-size:16.5px; color:var(--dim);
   }
-  .cta-row{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .cta-row{display:flex; gap:14px; margin-top:38px; flex-wrap:wrap; justify-content:center;}
   .btn{
-    display:inline-block;
-    padding:13px 26px;
-    border-radius:2px;
-    font-size:14px;
-    letter-spacing:0.02em;
-    text-decoration:none;
-    transition:transform 0.15s ease, background 0.15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 30px; border-radius:999px;
+    font-size:14.5px; font-weight:500; text-decoration:none; letter-spacing:0.01em;
+    transition:transform .2s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
   }
-  .btn-primary{background:var(--gold); color:var(--ink); font-weight:600;}
-  .btn-primary:hover{background:#dcb62f;}
-  .btn-ghost{border:1px solid var(--line); color:var(--ivory);}
-  .btn-ghost:hover{border-color:var(--gold);}
-  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{
+    background:var(--amber); color:#161006;
+    box-shadow:0 0 0 rgba(232,169,92,0);
+  }
+  .btn-primary:hover{background:var(--amber-hi); transform:translateY(-2px); box-shadow:0 8px 32px var(--glow);}
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ink);
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .btn-ghost:hover{border-color:rgba(232,169,92,0.5); transform:translateY(-2px);}
 
   /* ---------- Section headers ---------- */
-  .section-head{display:flex; align-items:baseline; gap:16px; margin-bottom:44px;}
-  .section-head .num{font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:13px;}
-  .section-head h2{font-size:clamp(28px,4vw,38px);}
-  .section-head .rule{flex:1; height:1px; background:var(--line);}
+  .section-head{margin-bottom:44px;}
+  .section-head .kicker{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:12px; letter-spacing:0.24em; text-transform:uppercase; color:var(--amber);
+    margin-bottom:14px;
+  }
+  .section-head .kicker::before{
+    content:""; width:22px; height:1px; background:var(--amber); opacity:0.7;
+  }
+  .section-head h2{font-size:clamp(30px,4.5vw,44px); letter-spacing:-0.01em;}
+
+  /* ---------- Cards / glass ---------- */
+  .card{
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:var(--r);
+    transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease, background .3s ease;
+  }
+  .card:hover{
+    border-color:rgba(232,169,92,0.35);
+    background:var(--glass-hi);
+    box-shadow:0 12px 44px rgba(0,0,0,0.35), 0 0 0 1px rgba(232,169,92,0.08);
+    transform:translateY(-3px);
+  }
 
   /* ---------- About ---------- */
-  .about-grid{display:grid; grid-template-columns:220px 1fr; gap:48px; align-items:start;}
+  .about-grid{display:grid; grid-template-columns:230px 1fr; gap:44px; align-items:center;}
   @media (max-width:640px){ .about-grid{grid-template-columns:1fr;} }
   .about-photo{
-    aspect-ratio:4/5;
-    width:100%;
-    object-fit:cover;
-    object-position:50% 20%;
-    filter:grayscale(0.3) contrast(1.05);
+    aspect-ratio:4/5; width:100%;
+    object-fit:cover; object-position:50% 20%;
+    filter:grayscale(0.35) contrast(1.05);
+    border-radius:var(--r);
     border:1px solid var(--line);
   }
-  .about-text p{color:rgba(243,236,219,0.8); max-width:60ch;}
-  .about-text strong{color:var(--ivory);}
-
-  /* ---------- Repertoire ---------- */
-  .rep-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
-  @media (max-width:640px){ .rep-grid{grid-template-columns:1fr;} }
-  .rep-card{background:var(--ink); padding:32px;}
-  .rep-card .tag{
-    font-family:'JetBrains Mono',monospace; font-size:11.5px;
-    text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:10px; display:block;
+  .about-text p{color:var(--dim); max-width:62ch; font-size:16px;}
+  .about-text strong{color:var(--ink); font-weight:500;}
+  .about-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+  .tag-pill{
+    font-size:12.5px; letter-spacing:0.06em; color:var(--dim);
+    padding:7px 15px; border-radius:999px;
+    border:1px solid var(--line); background:var(--glass);
   }
-  .rep-card h3{font-size:21px; margin-bottom:12px;}
-  .rep-card ul{margin:0; padding:0; list-style:none; color:rgba(243,236,219,0.7); font-size:14.5px;}
-  .rep-card li{padding:6px 0; border-top:1px solid var(--line);}
-  .rep-card li:first-child{border-top:none;}
 
   /* ---------- Videos ---------- */
-  .video-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; align-items:start;}
+  .video-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:start;}
   @media (max-width:640px){ .video-grid{grid-template-columns:1fr;} }
-  .video-col{display:grid; gap:24px; align-content:start;}
-  .video-card{border:1px solid var(--line);}
+  .video-col{display:grid; gap:22px; align-content:start;}
+  .video-card{overflow:hidden;}
+  .video-card:hover{transform:translateY(-2px);}
   .video-frame{width:100%; height:auto; background:#000; display:block;}
-  .video-placeholder{
-    aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
-    border:1px dashed var(--line); color:rgba(243,236,219,0.4);
-    font-family:'JetBrains Mono',monospace; font-size:12.5px; text-align:center; padding:20px;
+  .video-caption{
+    display:flex; align-items:center; gap:10px;
+    padding:14px 18px; font-size:14px; color:var(--dim);
   }
-  .video-link{
-    position:relative; display:block; aspect-ratio:16/9; width:100%;
-    text-decoration:none; overflow:hidden;
-  }
-  .video-thumb{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(0.25) brightness(0.85);}
-  .video-play{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:56px; height:56px; border-radius:50%;
-    background:rgba(14,33,29,0.75); border:1px solid var(--gold);
-    color:var(--gold); font-size:20px; display:flex; align-items:center; justify-content:center;
-    transition:background 0.2s ease, transform 0.2s ease;
-  }
-  .video-link:hover .video-play{background:var(--gold); color:var(--ink); transform:translate(-50%,-50%) scale(1.08);}
-  .video-caption{padding:14px 16px; font-size:14px; color:rgba(243,236,219,0.75);}
   .video-tag{
-    display:block;
-    font-family:'JetBrains Mono',monospace; font-size:11px;
-    text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:4px;
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--amber-hi); padding:4px 11px; border-radius:999px;
+    border:1px solid rgba(232,169,92,0.3); background:rgba(232,169,92,0.07);
   }
+
+  /* ---------- Repertoire ---------- */
+  .rep-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px;}
+  @media (max-width:640px){ .rep-grid{grid-template-columns:1fr;} }
+  .rep-card{padding:30px 30px 24px;}
+  .rep-card .set{
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--amber); margin-bottom:10px; display:block;
+  }
+  .rep-card h3{font-size:21px; margin-bottom:16px;}
+  .rep-card ul{list-style:none; color:var(--dim); font-size:14.5px;}
+  .rep-card li{
+    padding:8px 0; border-top:1px solid rgba(255,255,255,0.06);
+    display:flex; align-items:baseline; gap:10px;
+    transition:color .2s ease, padding-left .2s ease;
+  }
+  .rep-card li::before{content:"♪"; font-size:11px; color:var(--faint); transition:color .2s ease;}
+  .rep-card li:hover{color:var(--ink); padding-left:4px;}
+  .rep-card li:hover::before{color:var(--amber);}
+  .rep-card li:first-child{border-top:none;}
 
   /* ---------- Contact ---------- */
-  .contact-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; align-items:flex-end;}
-  .contact-list{list-style:none; margin:0; padding:0;}
-  .contact-list li{padding:8px 0; border-bottom:1px solid var(--line); font-size:15px;}
-  .contact-list .label{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:2px;}
+  .contact-card{
+    padding:clamp(32px,6vw,56px);
+    display:grid; grid-template-columns:1fr auto; gap:36px; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  .contact-card::before{
+    content:""; position:absolute; top:-140px; right:-100px;
+    width:420px; height:340px; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(232,169,92,0.13), transparent);
+    pointer-events:none;
+  }
+  @media (max-width:720px){ .contact-card{grid-template-columns:1fr;} }
+  .contact-card h2{font-size:clamp(26px,4vw,36px); margin-bottom:8px;}
+  .contact-card .sub{color:var(--dim); font-size:15.5px; max-width:44ch; margin-bottom:26px;}
+  .contact-rows{display:grid; gap:10px;}
+  .contact-row{
+    display:flex; align-items:center; gap:14px;
+    text-decoration:none; font-size:15.5px;
+    padding:13px 18px; border-radius:14px;
+    border:1px solid var(--line); background:var(--glass);
+    transition:border-color .25s ease, background .25s ease;
+    width:fit-content;
+  }
+  a.contact-row:hover{border-color:rgba(232,169,92,0.45); background:var(--glass-hi);}
+  .contact-row .ico{
+    width:34px; height:34px; border-radius:10px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(232,169,92,0.1); color:var(--amber-hi); font-size:15px;
+  }
+  .contact-row .lbl{font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--faint); display:block; line-height:1.3;}
 
-  footer{padding:36px 0; border-top:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:12px; color:rgba(243,236,219,0.4); text-align:center;}
+  footer{
+    padding:30px 24px 40px; text-align:center;
+    font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--faint);
+  }
+  footer span{color:var(--amber);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    *{transition:none !important;}
+    *{transition:none !important; animation:none !important;}
+    .reveal{opacity:1; transform:none;}
   }
 </style>
 </head>
 <body>
 
-<div class="keystrip" id="topKeys"></div>
+<div class="ambient" aria-hidden="true"></div>
 
-<header class="hero">
+<nav>
+  <a class="nav-logo" href="#top">Aminote<span>.</span></a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#videos">Watch</a>
+    <a href="#repertoire">Repertoire</a>
+    <a class="nav-cta" href="#contact">Book</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
   <img class="hero-photo" src="assets/hero.jpg" alt="Aminote at the grand piano">
   <div class="hero-overlay"></div>
-  <div class="wrap hero-inner">
-    <p class="eyebrow">Pianist</p>
+  <div class="hero-inner">
+    <div class="hero-pill">Pianist · Live sets</div>
     <h1>Aminote</h1>
-    <p class="tagline">Live piano for hotel lounges, restaurants and private events — jazz standards, sentimental classics, and Andalusian-flavored sets built for a room, not a recital hall.</p>
+    <p class="tagline">Live piano for hotel lounges, bars and private events — jazz standards, sentimental classics, and Andalusian-flavored sets built for the room.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#videos">Watch &amp; listen</a>
-      <a class="btn btn-ghost" href="#contact">Book / contact</a>
+      <a class="btn btn-ghost" href="#contact">Book an evening</a>
     </div>
   </div>
 </header>
 
-<div class="keystrip"></div>
-
 <div class="wrap">
 
   <section id="about">
-    <div class="section-head"><span class="num">01</span><h2>About</h2><span class="rule"></span></div>
+    <div class="section-head reveal"><span class="kicker">01 — About</span><h2>Music for the room</h2></div>
     <div class="about-grid">
-      <img class="about-photo" src="assets/about.jpg" alt="Aminote performing at the keyboard">
-      <div class="about-text">
-        <p><strong>Aminote</strong> is a pianist playing for hotel lounges, restaurants, and private functions. The set list is built around what a room actually wants to hear while it eats, talks, and relaxes: warm jazz standards, familiar sentimental pieces, and smooth lounge material — plus Andalusian and Arabic-flavored pieces that most touring lounge pianists don't carry, giving venues something locally distinctive.</p>
+      <img class="about-photo reveal" src="assets/about.jpg" alt="Aminote performing at the keyboard">
+      <div class="about-text reveal">
+        <p><strong>Aminote</strong> is a pianist playing for hotel lounges, bars, restaurants and private functions. The set list is built around what a room actually wants to hear while it eats, talks and relaxes: warm jazz standards, familiar sentimental pieces and smooth lounge material — plus Andalusian and Arabic-flavored pieces that most touring lounge pianists don't carry, giving venues something locally distinctive.</p>
+        <div class="about-tags">
+          <span class="tag-pill">Jazz standards</span>
+          <span class="tag-pill">Lounge &amp; bar sets</span>
+          <span class="tag-pill">Andalusian · Arabic</span>
+          <span class="tag-pill">Requests live</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="section-head reveal"><span class="kicker">02 — Watch &amp; Listen</span><h2>Live moments</h2></div>
+    <!--
+      HOW TO ADD MORE VIDEOS:
+      1) Put an .mp4 in the /videos folder of this repo, add a poster image in /assets,
+         then copy one of the video-card blocks below and point src/poster at the new files.
+         Set style="aspect-ratio:W/H" to the video's real dimensions.
+    -->
+    <div class="video-grid">
+      <div class="video-col">
+        <div class="card video-card reveal">
+          <video class="video-frame" style="aspect-ratio:1080/1920" controls preload="metadata" playsinline poster="assets/perfm1-poster.jpg" src="videos/perfm1.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
+        </div>
+        <div class="card video-card reveal">
+          <video class="video-frame" style="aspect-ratio:1080/856" controls preload="metadata" playsinline poster="assets/solos2-poster.jpg" src="videos/solos2.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Duo</span>Piano &amp; violin</p>
+        </div>
+      </div>
+      <div class="video-col">
+        <div class="card video-card reveal">
+          <video class="video-frame" style="aspect-ratio:1080/1422" controls preload="metadata" playsinline poster="assets/solos1-poster.jpg" src="videos/solos1.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
+        </div>
+        <div class="card video-card reveal">
+          <video class="video-frame" style="aspect-ratio:1080/1060" controls preload="metadata" playsinline poster="assets/perf-poster.jpg" src="videos/perf.mp4"></video>
+          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="repertoire">
-    <div class="section-head"><span class="num">02</span><h2>Repertoire</h2><span class="rule"></span></div>
+    <div class="section-head reveal"><span class="kicker">03 — Repertoire</span><h2>Four sets, one evening</h2></div>
     <div class="rep-grid">
-      <div class="rep-card">
-        <span class="tag">Set 01</span>
+      <div class="card rep-card reveal">
+        <span class="set">Set 01</span>
         <h3>Jazz Standards</h3>
         <ul>
           <li>Fly Me to the Moon</li>
@@ -250,8 +371,8 @@
           <li>Georgia on My Mind</li>
         </ul>
       </div>
-      <div class="rep-card">
-        <span class="tag">Set 02</span>
+      <div class="card rep-card reveal">
+        <span class="set">Set 02</span>
         <h3>Sentimental Classics</h3>
         <ul>
           <li>Unchained Melody</li>
@@ -266,8 +387,8 @@
           <li>La Vie en Rose</li>
         </ul>
       </div>
-      <div class="rep-card">
-        <span class="tag">Set 03</span>
+      <div class="card rep-card reveal">
+        <span class="set">Set 03</span>
         <h3>Smooth Lounge</h3>
         <ul>
           <li>River Flows in You</li>
@@ -282,8 +403,8 @@
           <li>Photograph</li>
         </ul>
       </div>
-      <div class="rep-card">
-        <span class="tag">Set 04 — Signature</span>
+      <div class="card rep-card reveal">
+        <span class="set">Set 04 — Signature</span>
         <h3>Andalusian &amp; Arabic-Flavored</h3>
         <ul>
           <li>Traditional Andalusian pieces</li>
@@ -301,74 +422,38 @@
     </div>
   </section>
 
-  <section id="videos">
-    <div class="section-head"><span class="num">03</span><h2>Watch &amp; Listen</h2><span class="rule"></span></div>
-    <!--
-      HOW TO ADD YOUR VIDEOS:
-
-      1) Local file: put an .mp4 in the /videos folder of this repo, then replace a
-         placeholder's <div class="video-placeholder">...</div> with
-         <video class="video-frame" controls src="videos/yourfile.mp4"></video>
-
-      2) YouTube (recommended): use a clickable thumbnail —
-         <a class="video-frame video-link" href="https://youtube.com/shorts/VIDEO_ID" target="_blank" rel="noopener">
-           <img class="video-thumb" src="https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg" alt="">
-           <span class="video-play">&#9654;</span>
-         </a>
-    -->
-    <div class="video-grid">
-      <div class="video-col">
-        <div class="video-card">
-          <video class="video-frame" style="aspect-ratio:1080/1920" controls preload="metadata" playsinline poster="assets/perfm1-poster.jpg" src="videos/perfm1.mp4"></video>
-          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
-        </div>
-        <div class="video-card">
-          <video class="video-frame" style="aspect-ratio:1080/856" controls preload="metadata" playsinline poster="assets/solos2-poster.jpg" src="videos/solos2.mp4"></video>
-          <p class="video-caption"><span class="video-tag">Duo</span>Piano &amp; violin</p>
-        </div>
-      </div>
-      <div class="video-col">
-        <div class="video-card">
-          <video class="video-frame" style="aspect-ratio:1080/1422" controls preload="metadata" playsinline poster="assets/solos1-poster.jpg" src="videos/solos1.mp4"></video>
-          <p class="video-caption"><span class="video-tag">Solo</span>Solo piano</p>
-        </div>
-        <div class="video-card">
-          <video class="video-frame" style="aspect-ratio:1080/1060" controls preload="metadata" playsinline poster="assets/perf-poster.jpg" src="videos/perf.mp4"></video>
-          <p class="video-caption"><span class="video-tag">Performance</span>Live set</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="contact">
-    <div class="section-head"><span class="num">04</span><h2>Contact</h2><span class="rule"></span></div>
-    <div class="contact-grid">
-      <ul class="contact-list">
-        <li><span class="label">Email</span>amineshady6@gmail.com</li>
-        <li><span class="label">Phone</span>— add number —</li>
-        <li><span class="label">Available for</span>Hotel &amp; restaurant residencies, private events</li>
-      </ul>
+    <div class="card contact-card reveal">
+      <div>
+        <span class="kicker" style="display:inline-flex; align-items:center; gap:10px; font-size:12px; letter-spacing:0.24em; text-transform:uppercase; color:var(--amber); margin-bottom:14px;">04 — Contact</span>
+        <h2>Book an evening</h2>
+        <p class="sub">Hotel &amp; restaurant residencies, bar sets, private events. Tell me about your venue and your night.</p>
+        <div class="contact-rows">
+          <a class="contact-row" href="mailto:amineshady6@gmail.com">
+            <span class="ico">✉</span>
+            <span><span class="lbl">Email</span>amineshady6@gmail.com</span>
+          </a>
+          <a class="contact-row" href="tel:+212654583156">
+            <span class="ico">✆</span>
+            <span><span class="lbl">Phone / WhatsApp</span>+212&nbsp;654&nbsp;583&nbsp;156</span>
+          </a>
+        </div>
+      </div>
       <a class="btn btn-primary" href="mailto:amineshady6@gmail.com">Send a message</a>
     </div>
   </section>
 
 </div>
 
-<footer>Aminote — Piano</footer>
+<footer>Aminote <span>·</span> Piano</footer>
 
 <script>
-  // Build the top keystrip: a simple repeating white/black key pattern.
-  (function(){
-    const strip = document.getElementById('topKeys');
-    const pattern = ['w','w','b','w','b','w','w','b','w','b','w','b'];
-    const total = 48;
-    for(let i=0;i<total;i++){
-      const p = pattern[i % pattern.length];
-      const k = document.createElement('div');
-      k.className = 'key' + (p==='b' ? ' black' : '');
-      strip.appendChild(k);
-    }
-  })();
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
 </body>
