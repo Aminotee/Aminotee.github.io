@@ -143,27 +143,28 @@
   }
   .btn-ghost:hover{border-color:rgba(232,169,92,0.5); transform:translateY(-2px);}
 
-  /* ---------- Piano keystrip ---------- */
-  .keystrip{
-    display:flex; height:64px; margin:10px 0;
-    border:1px solid var(--line); border-radius:16px;
-    background:rgba(255,255,255,0.025); overflow:hidden;
-    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  /* ---------- Piano motif (decorative) ---------- */
+  .hero-keys{
+    position:absolute; left:0; right:0; bottom:0; height:92px;
+    z-index:1; pointer-events:none;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 18% 82%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 18% 82%, transparent);
   }
-  .pkey{
-    flex:1; position:relative; cursor:pointer;
-    border-right:1px solid rgba(255,255,255,0.06);
-    transition:background .4s ease;
+  .hero-keys::before{ /* white key separators */
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, rgba(242,237,228,0.20) 0 1px, transparent 1px 46px);
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 80%);
+    mask-image:linear-gradient(180deg, transparent, #000 80%);
   }
-  .pkey:last-child{border-right:none;}
-  .pkey.lit, .pkey:hover{background:linear-gradient(180deg, transparent 20%, rgba(232,169,92,0.30));}
-  .pkey .bk{
-    position:absolute; top:0; right:-15%; width:30%; height:58%;
-    background:#050608; border-radius:0 0 4px 4px; z-index:2;
-    box-shadow:0 3px 8px rgba(0,0,0,0.65); cursor:pointer;
-    transition:background .4s ease, box-shadow .4s ease;
+  .hero-keys::after{ /* black keys, glowing faintly */
+    content:""; position:absolute; left:0; right:0; bottom:0; height:54%;
+    background:repeating-linear-gradient(90deg,
+      rgba(232,169,92,0.10) 0 7px, transparent 7px 39px, rgba(232,169,92,0.10) 39px 46px);
+    -webkit-mask-image:linear-gradient(180deg, transparent, #000 85%);
+    mask-image:linear-gradient(180deg, transparent, #000 85%);
   }
-  .pkey .bk.lit, .pkey .bk:hover{background:#33240f; box-shadow:0 0 14px rgba(232,169,92,0.4);}
+  .footer-keys{display:flex; justify-content:center; margin-bottom:16px;}
+  .footer-keys svg{display:block; opacity:0.75;}
 
   /* ---------- Section headers ---------- */
   .section-head{margin-bottom:44px;}
@@ -322,11 +323,10 @@
       <a class="btn btn-ghost" href="#contact">Book an evening</a>
     </div>
   </div>
+  <div class="hero-keys" aria-hidden="true"></div>
 </header>
 
 <div class="wrap">
-
-  <div class="keystrip" data-keystrip title="Go on — play a note" style="margin-top:34px;"></div>
 
   <section id="about">
     <div class="section-head reveal"><span class="kicker">01 — About</span><h2>Music for the room</h2></div>
@@ -471,11 +471,22 @@
     </div>
   </section>
 
-  <div class="keystrip" data-keystrip title="Go on — play a note" style="margin-bottom:44px;"></div>
-
 </div>
 
-<footer>Aminotee <span>·</span> Piano</footer>
+<footer>
+  <div class="footer-keys" aria-hidden="true">
+    <svg width="126" height="42" viewBox="0 0 126 42" fill="none">
+      <rect x="0.5" y="0.5" width="125" height="41" rx="6" stroke="rgba(242,237,228,0.22)"/>
+      <path d="M18.5 1v40M36.5 1v40M54.5 1v40M72.5 1v40M90.5 1v40M108.5 1v40" stroke="rgba(242,237,228,0.18)"/>
+      <rect x="12" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
+      <rect x="30" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
+      <rect x="66" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
+      <rect x="84" y="1" width="12" height="24" rx="2" fill="rgba(232,169,92,0.85)"/>
+      <rect x="102" y="1" width="12" height="24" rx="2" fill="#0b0c0f" stroke="rgba(242,237,228,0.14)"/>
+    </svg>
+  </div>
+  Aminotee <span>·</span> Piano
+</footer>
 
 <script>
   const io = new IntersectionObserver(entries => {
@@ -484,70 +495,6 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  /* ---------- Piano keystrips: glow like they're being played, sound on click ---------- */
-  (function(){
-    const strips = document.querySelectorAll('[data-keystrip]');
-    if (!strips.length) return;
-    const WHITE = [0,2,4,5,7,9,11];          // C major offsets within an octave
-    const HAS_BLACK = [1,1,0,1,1,1,0];       // sharp to the right of C D F G A
-    const WHITE_COUNT = 21;                  // three octaves
-    let ctx;
-
-    function play(midi){
-      try{
-        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-        if (ctx.state === 'suspended') ctx.resume();
-        const f = 440 * Math.pow(2, (midi - 69) / 12);
-        const t = ctx.currentTime;
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.exponentialRampToValueAtTime(0.22, t + 0.012);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.4);
-        const lp = ctx.createBiquadFilter();
-        lp.type = 'lowpass'; lp.frequency.value = 2400;
-        [[ 'sine', 1, 0.7 ], [ 'triangle', 2, 0.18 ]].forEach(([type, mult, vol]) => {
-          const o = ctx.createOscillator();
-          o.type = type; o.frequency.value = f * mult;
-          const g = ctx.createGain(); g.gain.value = vol;
-          o.connect(g); g.connect(lp);
-          o.start(t); o.stop(t + 1.5);
-        });
-        lp.connect(gain); gain.connect(ctx.destination);
-      }catch(e){}
-    }
-
-    function flash(el){
-      el.classList.add('lit');
-      setTimeout(() => el.classList.remove('lit'), 700);
-    }
-
-    strips.forEach(strip => {
-      const playable = [];
-      for (let i = 0; i < WHITE_COUNT; i++){
-        const oct = Math.floor(i / 7), deg = i % 7;
-        const midi = 48 + oct * 12 + WHITE[deg];   // start at C3
-        const k = document.createElement('div');
-        k.className = 'pkey';
-        k.addEventListener('pointerdown', e => { if (e.target === k){ play(midi); flash(k); } });
-        if (HAS_BLACK[deg] && i !== WHITE_COUNT - 1){
-          const b = document.createElement('div');
-          b.className = 'bk';
-          b.addEventListener('pointerdown', () => { play(midi + 1); flash(b); });
-          k.appendChild(b);
-          playable.push(b);
-        }
-        strip.appendChild(k);
-        playable.push(k);
-      }
-      // ambient auto-glow, as if someone is playing
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches){
-        setInterval(() => {
-          flash(playable[Math.floor(Math.random() * playable.length)]);
-        }, 1100 + Math.random() * 900);
-      }
-    });
-  })();
 </script>
 
 </body>
