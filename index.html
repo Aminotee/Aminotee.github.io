@@ -240,6 +240,9 @@
   .rep-card li:hover{color:var(--ink); padding-left:4px;}
   .rep-card li:hover::before{color:var(--amber);}
   .rep-card li:first-child{border-top:none;}
+  .rep-card.rep-more{display:none;}
+  .rep-grid.expanded .rep-more{display:block;}
+  .rep-toggle{display:flex; justify-content:center; margin-top:30px;}
 
   /* ---------- Contact ---------- */
   .contact-card{
@@ -421,7 +424,7 @@
           <li>Wicked Game</li>
         </ul>
       </div>
-      <div class="card rep-card reveal">
+      <div class="card rep-card reveal rep-more">
         <span class="set">Set 04</span>
         <h3>Classical</h3>
         <ul>
@@ -435,7 +438,7 @@
           <li>Mia &amp; Sebastian's Theme</li>
         </ul>
       </div>
-      <div class="card rep-card reveal">
+      <div class="card rep-card reveal rep-more">
         <span class="set">Set 05 — Signature</span>
         <h3>Andalusian &amp; Arabic</h3>
         <ul>
@@ -452,7 +455,7 @@
           <li>Asabaka 3ichqon</li>
         </ul>
       </div>
-      <div class="card rep-card reveal">
+      <div class="card rep-card reveal rep-more">
         <span class="set">Set 06</span>
         <h3>Special Occasions</h3>
         <ul>
@@ -465,6 +468,9 @@
           <li>Datni Skra</li>
         </ul>
       </div>
+    </div>
+    <div class="rep-toggle">
+      <button class="btn btn-ghost" id="repToggle" type="button" aria-expanded="false">Show all 6 sets</button>
     </div>
   </section>
 
@@ -504,6 +510,15 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const repGrid = document.querySelector('.rep-grid');
+  const repToggle = document.getElementById('repToggle');
+  repToggle.addEventListener('click', () => {
+    const open = repGrid.classList.toggle('expanded');
+    repToggle.textContent = open ? 'Show fewer sets' : 'Show all 6 sets';
+    repToggle.setAttribute('aria-expanded', open);
+    if (!open) document.getElementById('repertoire').scrollIntoView({behavior:'smooth'});
+  });
 </script>
 
 </body>
