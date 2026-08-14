@@ -5,11 +5,12 @@ Single-page portfolio for Aminotee, a jazz/lounge pianist. No build step:
 
 ## Repertoire must stay in sync with the source PDF
 
-The repertoire section in `index.html` mirrors Aminotee's
-`hotel_piano_repertoire.pdf`. **They must always match.**
+The repertoire section in `index.html` mirrors `hotel_piano_repertoire.pdf`,
+kept in the repo root as the source of truth. **They must always match.**
 
-- When a new version of the PDF is provided, diff it against the site and update
-  `index.html` so every set, song, and ordering matches the PDF exactly.
+- When a new version of the PDF is provided, replace the copy in the repo root,
+  then diff it against the site and update `index.html` so every set, song, and
+  ordering matches the PDF exactly.
 - When a song is added or removed on either side, apply the same change to the
   other, and report any drift found.
 - Keep the six set names and their order as they appear in the PDF:
