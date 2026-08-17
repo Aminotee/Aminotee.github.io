@@ -25,7 +25,8 @@ def load_sets():
 
 
 def unescape(text):
-    return text.replace("&amp;", "&").replace("&nbsp;", " ")
+    text = re.sub(r"<[^>]+>", "", text)  # song titles are wrapped in links
+    return text.replace("&amp;", "&").replace("&nbsp;", " ").strip()
 
 
 def site_sets():

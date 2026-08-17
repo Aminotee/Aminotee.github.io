@@ -20,8 +20,17 @@ kept in the repo root as the source of truth. **They must always match.**
 
 Current total: 64 songs.
 
-Run `python3 tools/build_repertoire_pdf.py` after editing the song data in that
-script, then `python3 tools/check_sync.py` to confirm the PDF and site agree.
+After editing the song data in `tools/build_repertoire_pdf.py`, run:
+
+```
+python3 tools/build_repertoire_pdf.py   # regenerate the PDF
+python3 tools/render_chord_links.py     # re-link song titles to their chords
+python3 tools/check_sync.py             # confirm the PDF and site agree
+```
+
+Each song title on the site links to its chords. Exact tab URLs go in the
+`EXACT` map in `render_chord_links.py`; everything else falls back to an
+Ultimate Guitar search, which always resolves.
 
 ## Deploying
 

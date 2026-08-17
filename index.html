@@ -262,6 +262,14 @@
   .rep-card li::before{content:"♪"; font-size:11px; color:var(--faint); transition:color .2s ease;}
   .rep-card li:hover{color:var(--ink); padding-left:4px;}
   .rep-card li:hover::before{color:var(--amber);}
+  .rep-card li a{
+    text-decoration:none; color:inherit;
+    border-bottom:1px solid transparent; transition:color .2s ease, border-color .2s ease;
+  }
+  .rep-card li a:hover{color:var(--amber-hi); border-bottom-color:rgba(232,169,92,0.45);}
+  .rep-hint{
+    font-size:12.5px; color:var(--faint); margin-top:-30px; margin-bottom:26px;
+  }
   .rep-card li:first-child{border-top:none;}
   .rep-card.rep-more{display:none;}
   .rep-grid.expanded .rep-more{display:block;}
@@ -414,105 +422,106 @@
 
   <section id="repertoire">
     <div class="section-head reveal"><span class="kicker">03 — Repertoire</span><h2>Six sets, one evening</h2></div>
+    <p class="rep-hint">Tap any title to open its chords.</p>
     <div class="rep-grid">
       <div class="card rep-card reveal">
         <span class="set">Set 01</span>
         <h3>Jazz Standards</h3>
         <ul>
-          <li>Fly Me to the Moon</li>
-          <li>Autumn Leaves</li>
-          <li>Just the Two of Us</li>
-          <li>What a Wonderful World</li>
-          <li>Feeling Good</li>
-          <li>Take Five</li>
-          <li>Georgia on My Mind</li>
-          <li>Sway</li>
-          <li>Ain't No Sunshine</li>
-          <li>Back to Black</li>
-          <li>Hit the Road Jack</li>
-          <li>Dancing in Wartime</li>
-          <li>He Loved Him Madly</li>
-          <li>I've Got a Woman</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Fly+Me+to+the+Moon+Frank+Sinatra" target="_blank" rel="noopener">Fly Me to the Moon</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Autumn+Leaves" target="_blank" rel="noopener">Autumn Leaves</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Just+the+Two+of+Us+Bill+Withers+%2F+Grover+Washington+Jr." target="_blank" rel="noopener">Just the Two of Us</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=What+a+Wonderful+World+Louis+Armstrong" target="_blank" rel="noopener">What a Wonderful World</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Feeling+Good+Nina+Simone" target="_blank" rel="noopener">Feeling Good</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Take+Five+Dave+Brubeck" target="_blank" rel="noopener">Take Five</a></li>
+          <li><a href="https://tabs.ultimate-guitar.com/tab/ray-charles/georgia-on-my-mind-chords-1164380" target="_blank" rel="noopener">Georgia on My Mind</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Sway+Dean+Martin" target="_blank" rel="noopener">Sway</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Ain%27t+No+Sunshine+Bill+Withers" target="_blank" rel="noopener">Ain't No Sunshine</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Back+to+Black+Amy+Winehouse" target="_blank" rel="noopener">Back to Black</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Hit+the+Road+Jack+Ray+Charles" target="_blank" rel="noopener">Hit the Road Jack</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Dancing+in+Wartime+Miles+Laroque" target="_blank" rel="noopener">Dancing in Wartime</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=He+Loved+Him+Madly+Miles+Davis" target="_blank" rel="noopener">He Loved Him Madly</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=I%27ve+Got+a+Woman+Ray+Charles" target="_blank" rel="noopener">I've Got a Woman</a></li>
         </ul>
       </div>
       <div class="card rep-card reveal">
         <span class="set">Set 02</span>
         <h3>Sentimental Classics</h3>
         <ul>
-          <li>Stand By Me</li>
-          <li>Knockin' on Heaven's Door</li>
-          <li>Can't Help Falling in Love</li>
-          <li>My Heart Will Go On</li>
-          <li>Imagine</li>
-          <li>Careless Whisper</li>
-          <li>Ain't No Mountain High Enough</li>
-          <li>Hotel California</li>
-          <li>Can't Take My Eyes Off You</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Stand+By+Me+Ben+E.+King" target="_blank" rel="noopener">Stand By Me</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Knockin%27+on+Heaven%27s+Door+Bob+Dylan+%2F+Guns+N%27+Roses" target="_blank" rel="noopener">Knockin' on Heaven's Door</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Can%27t+Help+Falling+in+Love+Elvis+Presley" target="_blank" rel="noopener">Can't Help Falling in Love</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=My+Heart+Will+Go+On+Celine+Dion" target="_blank" rel="noopener">My Heart Will Go On</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Imagine+John+Lennon" target="_blank" rel="noopener">Imagine</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Careless+Whisper+George+Michael" target="_blank" rel="noopener">Careless Whisper</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Ain%27t+No+Mountain+High+Enough+Marvin+Gaye+%26+Tammi+Terrell" target="_blank" rel="noopener">Ain't No Mountain High Enough</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Hotel+California+Eagles" target="_blank" rel="noopener">Hotel California</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Can%27t+Take+My+Eyes+Off+You+Frankie+Valli" target="_blank" rel="noopener">Can't Take My Eyes Off You</a></li>
         </ul>
       </div>
       <div class="card rep-card reveal">
         <span class="set">Set 03</span>
         <h3>Smooth Lounge</h3>
         <ul>
-          <li>Perfect</li>
-          <li>City of Stars</li>
-          <li>A Thousand Years</li>
-          <li>Say Something</li>
-          <li>Someone Like You</li>
-          <li>Fix You</li>
-          <li>Chasing Cars</li>
-          <li>Stay With Me</li>
-          <li>I'm Not the Only One</li>
-          <li>Sex, Drugs, Etc.</li>
-          <li>Mad About You</li>
-          <li>Creep</li>
-          <li>Wicked Game</li>
-          <li>Listen Before I Go</li>
-          <li>Happier Than Ever</li>
-          <li>The Night We Met</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Perfect+Ed+Sheeran" target="_blank" rel="noopener">Perfect</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=City+of+Stars+La+La+Land" target="_blank" rel="noopener">City of Stars</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=A+Thousand+Years+Christina+Perri" target="_blank" rel="noopener">A Thousand Years</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Say+Something+A+Great+Big+World" target="_blank" rel="noopener">Say Something</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Someone+Like+You+Adele" target="_blank" rel="noopener">Someone Like You</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Fix+You+Coldplay" target="_blank" rel="noopener">Fix You</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Chasing+Cars+Snow+Patrol" target="_blank" rel="noopener">Chasing Cars</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Stay+With+Me+Sam+Smith" target="_blank" rel="noopener">Stay With Me</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=I%27m+Not+the+Only+One+Sam+Smith" target="_blank" rel="noopener">I'm Not the Only One</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Sex%2C+Drugs%2C+Etc.+Beach+Weather" target="_blank" rel="noopener">Sex, Drugs, Etc.</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Mad+About+You+Hooverphonic" target="_blank" rel="noopener">Mad About You</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Creep+Radiohead" target="_blank" rel="noopener">Creep</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Wicked+Game+Chris+Isaak" target="_blank" rel="noopener">Wicked Game</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Listen+Before+I+Go+Billie+Eilish" target="_blank" rel="noopener">Listen Before I Go</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Happier+Than+Ever+Billie+Eilish" target="_blank" rel="noopener">Happier Than Ever</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=The+Night+We+Met+Lord+Huron" target="_blank" rel="noopener">The Night We Met</a></li>
         </ul>
       </div>
       <div class="card rep-card reveal rep-more">
         <span class="set">Set 04</span>
         <h3>Classical</h3>
         <ul>
-          <li>Experience</li>
-          <li>Idea 22</li>
-          <li>Only If I Could Tell</li>
-          <li>Una Mattina</li>
-          <li>Valse Sentimentale</li>
-          <li>Je te laisserai des mots</li>
-          <li>Solas</li>
-          <li>Mia &amp; Sebastian's Theme</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Experience+Ludovico+Einaudi" target="_blank" rel="noopener">Experience</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Idea+22+Ludovico+Einaudi" target="_blank" rel="noopener">Idea 22</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Only+If+I+Could+Tell+Ludovico+Einaudi" target="_blank" rel="noopener">Only If I Could Tell</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Una+Mattina+Ludovico+Einaudi" target="_blank" rel="noopener">Una Mattina</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Valse+Sentimentale+Tchaikovsky" target="_blank" rel="noopener">Valse Sentimentale</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Je+te+laisserai+des+mots+Patrick+Watson" target="_blank" rel="noopener">Je te laisserai des mots</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Solas+Joep+Beving" target="_blank" rel="noopener">Solas</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Mia+%26+Sebastian%27s+Theme+La+La+Land+%2F+Justin+Hurwitz" target="_blank" rel="noopener">Mia &amp; Sebastian's Theme</a></li>
         </ul>
       </div>
       <div class="card rep-card reveal rep-more">
         <span class="set">Set 05 — Signature</span>
         <h3>Andalusian &amp; Arabic</h3>
         <ul>
-          <li>Lamma Bada Yatathanna</li>
-          <li>Habibi Ya Nour El Ain</li>
-          <li>Ahwak</li>
-          <li>Kan Enna Tahoun</li>
-          <li>Talat Daqat</li>
-          <li>3ahd Asdikae</li>
-          <li>Win — Halim Yousfi</li>
-          <li>Diroulha Laaka / Nti Sbabi</li>
-          <li>A Girl Within My Soul</li>
-          <li>Asabaka 3ichqon</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Lamma+Bada+Yatathanna" target="_blank" rel="noopener">Lamma Bada Yatathanna</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Habibi+Ya+Nour+El+Ain+Amr+Diab" target="_blank" rel="noopener">Habibi Ya Nour El Ain</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Ahwak+Abdel+Halim+Hafez" target="_blank" rel="noopener">Ahwak</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Kan+Enna+Tahoun" target="_blank" rel="noopener">Kan Enna Tahoun</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Talat+Daqat" target="_blank" rel="noopener">Talat Daqat</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=3ahd+Asdikae" target="_blank" rel="noopener">3ahd Asdikae</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Win+Halim+Yousfi" target="_blank" rel="noopener">Win — Halim Yousfi</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Diroulha+Laaka+%2F+Nti+Sbabi" target="_blank" rel="noopener">Diroulha Laaka / Nti Sbabi</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=A+Girl+Within+My+Soul+Yanni" target="_blank" rel="noopener">A Girl Within My Soul</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Asabaka+3ichqon" target="_blank" rel="noopener">Asabaka 3ichqon</a></li>
         </ul>
       </div>
       <div class="card rep-card reveal rep-more">
         <span class="set">Set 06</span>
         <h3>Special Occasions</h3>
         <ul>
-          <li>Smooth</li>
-          <li>Tum Hi Ho</li>
-          <li>Kan Kitshabhoum — Shayfeen</li>
-          <li>Brm Brm Brm</li>
-          <li>Maak — Draganov</li>
-          <li>Briya — Djam</li>
-          <li>Datni Skra</li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Smooth+Santana+ft.+Rob+Thomas" target="_blank" rel="noopener">Smooth</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Tum+Hi+Ho+Arijit+Singh" target="_blank" rel="noopener">Tum Hi Ho</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Kan+Kitshabhoum+Shayfeen" target="_blank" rel="noopener">Kan Kitshabhoum — Shayfeen</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Brm+Brm+Brm" target="_blank" rel="noopener">Brm Brm Brm</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Maak+Draganov" target="_blank" rel="noopener">Maak — Draganov</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Briya+Djam" target="_blank" rel="noopener">Briya — Djam</a></li>
+          <li><a href="https://www.ultimate-guitar.com/search.php?search_type=title&amp;value=Datni+Skra" target="_blank" rel="noopener">Datni Skra</a></li>
         </ul>
       </div>
     </div>
