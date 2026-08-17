@@ -62,8 +62,6 @@ SETS = [
          "Upbeat and fun — lifts the energy instantly. Great contrast after a ballad.", "Easy"),
         ("Dancing in Wartime", "Miles Laroque",
          "Cool and laid-back. Smooth mid-tempo feel.", "Medium"),
-        ("He Loved Him Madly", "Miles Davis",
-         "Atmospheric and spacious. Great for a quiet ambient moment.", "Advanced"),
         ("I've Got a Woman", "Ray Charles",
          "Gospel-influenced groove. Energetic and joyful — crowd pleaser.", "Easy"),
     ]),

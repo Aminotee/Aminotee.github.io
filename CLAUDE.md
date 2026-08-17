@@ -18,7 +18,7 @@ kept in the repo root as the source of truth. **They must always match.**
   Andalusian & Arabic (signature) · Special Occasions.
 - Update the song count in `README.md` whenever the total changes.
 
-Current total: 64 songs.
+Current total: 63 songs.
 
 After editing the song data in `tools/build_repertoire_pdf.py`, run:
 
