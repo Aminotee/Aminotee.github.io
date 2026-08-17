@@ -104,6 +104,8 @@ SETS = [
          "Minimal and dreamy. Works as soft background music.", "Easy"),
         ("Stay With Me", "Sam Smith",
          "Simple gospel-influenced ballad. Very recognizable.", "Easy"),
+        ("I'm Not the Only One", "Sam Smith",
+         "Slow soul groove. Warm and easy to sing along to.", "Easy"),
         ("Sex, Drugs, Etc.", "Beach Weather",
          "Moody and cool. Younger guests love the vibe of this one.", "Easy"),
         ("Mad About You", "Hooverphonic",
