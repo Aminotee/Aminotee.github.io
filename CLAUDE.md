@@ -28,9 +28,10 @@ python3 tools/render_chord_links.py     # re-link song titles to their chords
 python3 tools/check_sync.py             # confirm the PDF and site agree
 ```
 
-Each song title on the site links to its chords. Exact tab URLs go in the
-`EXACT` map in `render_chord_links.py`; everything else falls back to an
-Ultimate Guitar search, which always resolves.
+Each song title on the site links to its chords. Exact URLs go in the `EXACT`
+map in `render_chord_links.py` — any chord site is fine (Ultimate Guitar,
+Chordify, e-chords). Songs not listed there fall back to an Ultimate Guitar
+search, which always resolves.
 
 ## Deploying
 

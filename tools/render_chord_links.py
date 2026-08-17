@@ -77,12 +77,18 @@ EXACT = {
     "Habibi Ya Nour El Ain": "https://tabs.ultimate-guitar.com/tab/6047888",
     "Ahwak": UG + "abdel-halim-hafez/ahwak-chords-3623948",
     "Talat Daqat": UG + "misc-unsigned-bands/talat-daqat-chords-2303431",
+    "Kan Enna Tahoun": UG + "fairuz/kan-enna-tahoun-chords-1832169",
+    "3ahd Asdikae": "https://tabs.ultimate-guitar.com/tab/3105149",
+    "Asabaka 3ichqon": "https://tabs.ultimate-guitar.com/tab/1859566",
     "Win": UG + "halim-yousfi/win-chords-3113915",
     "A Girl Within My Soul": "https://tabs.ultimate-guitar.com/tab/4168996",
     # Special Occasions
     "Smooth": UG + "santana/smooth-chords-210966",
     "Tum Hi Ho": UG + "misc-soundtrack/aashiqui-2-tum-hi-ho-chords-1244521",
     "Briya": UG + "djam/briya-chords-5746646",
+    "Maak": "https://chordify.net/chords/"
+            "draganov-maak-dragagalessfdar-2-mr-draganov",
+    "Datni Skra": "https://www.e-chords.com/chords/khaled/detni-essekra",
 }
 
 # Artist values that describe a style, not a performer — searching for them
