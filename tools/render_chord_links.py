@@ -17,11 +17,72 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# Hand-picked links. Add entries here as better ones are found.
+# Direct links to a specific chord sheet. Anything missing here falls back to
+# an Ultimate Guitar search, so this map can grow one song at a time.
+UG = "https://tabs.ultimate-guitar.com/tab/"
 EXACT = {
-    "Georgia on My Mind":
-        "https://tabs.ultimate-guitar.com/tab/ray-charles/"
-        "georgia-on-my-mind-chords-1164380",
+    # Jazz Standards
+    "Fly Me to the Moon": UG + "frank-sinatra/fly-me-to-the-moon-chords-327721",
+    "Autumn Leaves": UG + "misc-traditional/autumn-leaves-chords-1966069",
+    "Just the Two of Us": UG + "grover-washington-jr-/just-the-two-of-us-chords-663141",
+    "What a Wonderful World": UG + "louis-armstrong/what-a-wonderful-world-chords-7427",
+    "Feeling Good": UG + "nina-simone/feeling-good-chords-280078",
+    "Take Five": UG + "the-dave-brubeck-quartet/take-five-chords-1196457",
+    "Georgia on My Mind": UG + "ray-charles/georgia-on-my-mind-chords-1164380",
+    "Sway": UG + "dean-martin/sway-quien-sera-chords-819964",
+    "Ain't No Sunshine": UG + "bill-withers/aint-no-sunshine-chords-468744",
+    "Back to Black": UG + "amy-winehouse/back-to-black-chords-467281",
+    "Hit the Road Jack": UG + "ray-charles/hit-the-road-jack-chords-168021",
+    "I've Got a Woman": UG + "ray-charles/ive-got-a-woman-chords-4356752",
+    # Sentimental Classics
+    "Stand By Me": UG + "ben-e-king/stand-by-me-chords-73005",
+    "Knockin' on Heaven's Door": UG + "bob-dylan/knockin-on-heavens-door-chords-66587",
+    "Can't Help Falling in Love": UG + "elvis-presley/cant-help-falling-in-love-chords-1086983",
+    "My Heart Will Go On": UG + "celine-dion/my-heart-will-go-on-chords-14976",
+    "Imagine": UG + "john-lennon/imagine-chords-9306",
+    "Careless Whisper": UG + "george-michael/careless-whisper-chords-45782",
+    "Ain't No Mountain High Enough":
+        UG + "marvin-gaye/aint-no-mountain-high-enough-chords-660108",
+    "Hotel California": UG + "eagles/hotel-california-chords-46190",
+    "Can't Take My Eyes Off You":
+        UG + "frankie-valli/cant-take-my-eyes-off-you-chords-439357",
+    # Smooth Lounge / Modern
+    "Perfect": UG + "ed-sheeran/perfect-chords-1956589",
+    "City of Stars": UG + "misc-soundtrack/la-la-land-city-of-stars-chords-1860368",
+    "A Thousand Years": UG + "christina-perri/a-thousand-years-chords-1101795",
+    "Say Something": UG + "a-great-big-world/say-something-chords-1416487",
+    "Someone Like You": UG + "adele/someone-like-you-chords-1006751",
+    "Fix You": UG + "coldplay/fix-you-chords-202592",
+    "Chasing Cars": UG + "snow-patrol/chasing-cars-chords-355425",
+    "Stay With Me": UG + "sam-smith/stay-with-me-chords-1473600",
+    "I'm Not the Only One": UG + "sam-smith/im-not-the-only-one-chords-1489018",
+    "Sex, Drugs, Etc.": UG + "beach-weather/sex-drugs-etc-chords-2737914",
+    "Mad About You": UG + "hooverphonic/mad-about-you-chords-827610",
+    "Creep": UG + "radiohead/creep-chords-4169",
+    "Wicked Game": UG + "chris-isaak/wicked-game-chords-11066",
+    "Listen Before I Go": UG + "billie-eilish/listen-before-i-go-chords-2591907",
+    "Happier Than Ever": UG + "billie-eilish/happier-than-ever-chords-3592094",
+    "The Night We Met": UG + "lord-huron/the-night-we-met-chords-1709964",
+    # Classical
+    "Experience": UG + "ludovico-einaudi/experience-tabs-2027143",
+    "Idea 22": UG + "gibran-alcocer/idea-22-chords-5199567",
+    "Una Mattina": UG + "ludovico-einaudi/una-mattina-official-chords-2646672",
+    "Je te laisserai des mots":
+        UG + "patrick-watson/je-te-laisserai-des-mots-chords-1820643",
+    "Mia &amp; Sebastian's Theme":
+        UG + "misc-soundtrack/la-la-land-mia-and-sebastians-theme-chords-3488813",
+    # Andalusian / Arabic
+    "Lamma Bada Yatathanna":
+        UG + "lena-chamamyan/lamma-bada-yatathanna-chords-1818953",
+    "Habibi Ya Nour El Ain": "https://tabs.ultimate-guitar.com/tab/6047888",
+    "Ahwak": UG + "abdel-halim-hafez/ahwak-chords-3623948",
+    "Talat Daqat": UG + "misc-unsigned-bands/talat-daqat-chords-2303431",
+    "Win": UG + "halim-yousfi/win-chords-3113915",
+    "A Girl Within My Soul": "https://tabs.ultimate-guitar.com/tab/4168996",
+    # Special Occasions
+    "Smooth": UG + "santana/smooth-chords-210966",
+    "Tum Hi Ho": UG + "misc-soundtrack/aashiqui-2-tum-hi-ho-chords-1244521",
+    "Briya": UG + "djam/briya-chords-5746646",
 }
 
 # Artist values that describe a style, not a performer — searching for them
