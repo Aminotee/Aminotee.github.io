@@ -56,6 +56,8 @@ SETS = [
          "Elegant Latin-infused swing. Perfect for a lively moment in the set.", "Easy"),
         ("Ain't No Sunshine", "Bill Withers",
          "Soulful and slow. One of the most emotional jazz-blues pieces you can play.", "Easy"),
+        ("Back to Black", "Amy Winehouse",
+         "Dark, soulful groove. Modern classic that sits beautifully in a lounge.", "Medium"),
         ("Hit the Road Jack", "Ray Charles",
          "Upbeat and fun — lifts the energy instantly. Great contrast after a ballad.", "Easy"),
         ("Dancing in Wartime", "Miles Laroque",
