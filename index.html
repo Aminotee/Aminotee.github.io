@@ -260,6 +260,16 @@
   .contact-card h2{font-size:clamp(26px,4vw,36px); margin-bottom:8px;}
   .contact-card .sub{color:var(--dim); font-size:15.5px; max-width:44ch; margin-bottom:26px;}
   .contact-rows{display:grid; gap:10px;}
+  .contact-side{display:flex; flex-direction:column; align-items:center; gap:12px;}
+  .qr-tile{
+    background:var(--ink); padding:10px; border-radius:14px; line-height:0;
+    border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .qr-tile img{display:block; width:150px; height:150px; border-radius:4px;}
+  .qr-caption{
+    font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--faint); margin-bottom:2px;
+  }
   .contact-row{
     display:flex; align-items:center; gap:14px;
     text-decoration:none; font-size:15.5px;
@@ -504,7 +514,13 @@
           </a>
         </div>
       </div>
-      <a class="btn btn-primary" href="mailto:amineshady6@gmail.com">Send a message</a>
+      <div class="contact-side">
+        <div class="qr-tile">
+          <img src="assets/qr.svg" alt="QR code linking to aminotee.github.io" width="150" height="150">
+        </div>
+        <p class="qr-caption">Scan to keep this page</p>
+        <a class="btn btn-primary" href="mailto:amineshady6@gmail.com">Send a message</a>
+      </div>
     </div>
   </section>
 
