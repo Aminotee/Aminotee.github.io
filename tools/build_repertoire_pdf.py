@@ -140,8 +140,6 @@ SETS = [
          "Most iconic muwashshah. Stops people in their tracks.", "Medium"),
         ("Habibi Ya Nour El Ain", "Amr Diab",
          "Modern and lighter. Moroccan guests love this one.", "Easy"),
-        ("Andalusian Improvisation", "Your own",
-         "2–3 min in Hijaz or Rast maqam — no arrangement needed.", "Advanced"),
         ("Ahwak", "Abdel Halim Hafez",
          "Egyptian classic. Slow, romantic, and instantly familiar.", "Medium"),
         ("Kan Enna Tahoun", "Moroccan / Arabic",
