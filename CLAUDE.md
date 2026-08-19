@@ -29,10 +29,12 @@ python3 tools/check_sync.py             # confirm the PDF and site agree
 python3 tools/build_playlist.py         # refresh the playlist import list
 ```
 
-Each song title on the site links to its chords. Exact URLs go in the `EXACT`
-map in `render_chord_links.py` — any chord site is fine (Ultimate Guitar,
-Chordify, e-chords). Songs not listed there fall back to an Ultimate Guitar
-search, which always resolves.
+Each song has a Spotify icon and a chords link. Exact chord URLs go in the
+`EXACT` map in `render_chord_links.py` — any chord site is fine (Ultimate
+Guitar, Chordify, e-chords) — and verified Spotify track URLs go in `SPOTIFY`.
+Songs missing from either map fall back to a search on that site, which always
+resolves. Spotify's connector search often returns covers rather than the
+original recording, so only add a track URL after checking the artist matches.
 
 ## Deploying
 

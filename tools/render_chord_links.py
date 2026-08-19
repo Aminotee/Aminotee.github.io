@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Wrap every song in index.html's repertoire with a link to its chords.
+"""Give every song in index.html's repertoire a Spotify icon and a chords link.
 
-Song titles keep whatever text they already show; this only adds the anchor.
+Song titles keep whatever text they already show; this only adds the anchors.
+Verified Spotify track URLs live in SPOTIFY — anything missing there opens a
+Spotify search for the song, which lands on it in the app.
 Exact tab URLs live in EXACT — anything not listed there falls back to an
 Ultimate Guitar search for the song (plus artist, when the artist is a real
 act rather than a generic label like "Moroccan"), which always resolves.
@@ -91,6 +93,25 @@ EXACT = {
     "Datni Skra": "https://www.e-chords.com/chords/khaled/detni-essekra",
 }
 
+# Verified Spotify track links. Add entries as they are confirmed.
+SPOTIFY = {
+    "Fly Me to the Moon":
+        "https://open.spotify.com/track/1orbpXnRLZOLTWADeOkBz1",
+    "Ain't No Sunshine":
+        "https://open.spotify.com/track/1k1Bqnv2R0uJXQN4u6LKYt",
+}
+
+SPOTIFY_ICON = (
+    '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+    '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.59 14.42a.62.62 0 0 1'
+    '-.86.21c-2.35-1.44-5.31-1.76-8.8-.96a.62.62 0 1 1-.28-1.21c3.82-.87 7.1'
+    '-.5 9.73 1.11.3.18.39.57.21.85zm1.22-2.73a.78.78 0 0 1-1.07.26c-2.69-1.65'
+    '-6.79-2.13-9.97-1.17a.78.78 0 1 1-.45-1.49c3.63-1.1 8.15-.56 11.24 1.33'
+    '.36.22.48.7.25 1.07zm.11-2.85c-3.23-1.92-8.55-2.09-11.63-1.16a.93.93 0 1'
+    ' 1-.54-1.79c3.54-1.07 9.42-.86 13.13 1.34a.94.94 0 0 1-.96 1.61z"/></svg>'
+)
+
+
 # Artist values that describe a style, not a performer — searching for them
 # alongside the title only muddies the results.
 GENERIC = {
@@ -116,6 +137,14 @@ def chords_url(song, artist):
             "&value=" + urllib.parse.quote_plus(terms))
 
 
+def spotify_url(song, artist):
+    song, artist = html.unescape(song), html.unescape(artist)
+    if song in SPOTIFY:
+        return SPOTIFY[song]
+    terms = song if artist in GENERIC else "%s %s" % (song, artist)
+    return "https://open.spotify.com/search/" + urllib.parse.quote(terms)
+
+
 def main():
     path = ROOT / "index.html"
     page = path.read_text(encoding="utf-8")
@@ -129,8 +158,15 @@ def main():
         label = re.sub(r"<[^>]+>", "", match.group(1)).strip()
         song, artist = songs[cursor["i"]][0], songs[cursor["i"]][1]
         cursor["i"] += 1
-        return ('<li><a href="%s" target="_blank" rel="noopener">%s</a></li>'
-                % (html.escape(chords_url(song, artist), quote=True), label))
+        return (
+            '<li>'
+            '<a class="sp" href="%s" target="_blank" rel="noopener" '
+            'aria-label="%s on Spotify">%s</a>'
+            '<a href="%s" target="_blank" rel="noopener">%s</a>'
+            '</li>' % (
+                html.escape(spotify_url(song, artist), quote=True),
+                html.escape(label, quote=True), SPOTIFY_ICON,
+                html.escape(chords_url(song, artist), quote=True), label))
 
     body = re.sub(r"<li>(.*?)</li>", relink, body, flags=re.S)
 
@@ -140,10 +176,13 @@ def main():
 
     path.write_text(head + 'id="repertoire"' + body + 'id="contact"' + tail,
                     encoding="utf-8")
-    print("linked %d songs (%d exact, %d search)"
+    print("linked %d songs — chords: %d exact / %d search; "
+          "spotify: %d exact / %d search"
           % (len(songs),
              sum(1 for s in songs if html.unescape(s[0]) in EXACT),
-             sum(1 for s in songs if html.unescape(s[0]) not in EXACT)))
+             sum(1 for s in songs if html.unescape(s[0]) not in EXACT),
+             sum(1 for s in songs if html.unescape(s[0]) in SPOTIFY),
+             sum(1 for s in songs if html.unescape(s[0]) not in SPOTIFY)))
 
 
 if __name__ == "__main__":
