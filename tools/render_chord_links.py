@@ -160,13 +160,13 @@ def main():
         cursor["i"] += 1
         return (
             '<li>'
+            '<a href="%s" target="_blank" rel="noopener">%s</a>'
             '<a class="sp" href="%s" target="_blank" rel="noopener" '
             'aria-label="%s on Spotify">%s</a>'
-            '<a href="%s" target="_blank" rel="noopener">%s</a>'
             '</li>' % (
+                html.escape(chords_url(song, artist), quote=True), label,
                 html.escape(spotify_url(song, artist), quote=True),
-                html.escape(label, quote=True), SPOTIFY_ICON,
-                html.escape(chords_url(song, artist), quote=True), label))
+                html.escape(label, quote=True), SPOTIFY_ICON))
 
     body = re.sub(r"<li>(.*?)</li>", relink, body, flags=re.S)
 

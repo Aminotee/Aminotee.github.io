@@ -1,7 +1,6 @@
 Frank Sinatra - Fly Me to the Moon
 Autumn Leaves
 Grover Washington Jr. - Just the Two of Us
-Louis Armstrong - What a Wonderful World
 Nina Simone - Feeling Good
 Dave Brubeck - Take Five
 Ray Charles - Georgia on My Mind
@@ -14,12 +13,12 @@ Ray Charles - I've Got a Woman
 Ben E. King - Stand By Me
 Bob Dylan - Knockin' on Heaven's Door
 Elvis Presley - Can't Help Falling in Love
-Celine Dion - My Heart Will Go On
 John Lennon - Imagine
 George Michael - Careless Whisper
 Marvin Gaye & Tammi Terrell - Ain't No Mountain High Enough
 Eagles - Hotel California
 Frankie Valli - Can't Take My Eyes Off You
+Louis Armstrong - What a Wonderful World
 Ed Sheeran - Perfect
 La La Land - City of Stars
 Christina Perri - A Thousand Years
