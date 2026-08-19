@@ -26,6 +26,7 @@ After editing the song data in `tools/build_repertoire_pdf.py`, run:
 python3 tools/build_repertoire_pdf.py   # regenerate the PDF
 python3 tools/render_chord_links.py     # re-link song titles to their chords
 python3 tools/check_sync.py             # confirm the PDF and site agree
+python3 tools/build_playlist.py         # refresh the playlist import list
 ```
 
 Each song title on the site links to its chords. Exact URLs go in the `EXACT`
