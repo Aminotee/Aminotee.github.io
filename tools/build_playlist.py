@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Write repertoire-playlist.txt — one "Artist - Title" per line.
+"""Write the repertoire out for playlist importers.
 
-Paste the file into a playlist importer (TuneMyMusic, Soundiiz, Spotlistr…)
-to turn the repertoire into a Spotify playlist.
+Produces repertoire-playlist.txt (one "Artist - Title" per line) and
+repertoire-playlist.csv (Title,Artist columns). Feed either to an importer
+such as TuneMyMusic or Soundiiz to build the Spotify playlist — those match
+the real tracks, unlike a playlist generator.
 
     python3 tools/build_playlist.py
 """
 
+import csv
 import html
 import importlib.util
 import pathlib
@@ -45,11 +48,21 @@ def line(song, artist):
 
 
 def main():
-    lines = [line(song, artist)
+    songs = [(html.unescape(song),
+              ARTIST_OVERRIDES.get(html.unescape(song), html.unescape(artist)))
              for _, rows in load_sets() for song, artist, _, _ in rows]
-    out = ROOT / "repertoire-playlist.txt"
-    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print("%s — %d songs" % (out.name, len(lines)))
+
+    txt = ROOT / "repertoire-playlist.txt"
+    txt.write_text("\n".join(line(s, a) for s, a in songs) + "\n",
+                   encoding="utf-8")
+
+    csv_path = ROOT / "repertoire-playlist.csv"
+    with csv_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["Title", "Artist"])
+        writer.writerows((s, "" if a in GENERIC else a) for s, a in songs)
+
+    print("%s + %s — %d songs" % (txt.name, csv_path.name, len(songs)))
 
 
 if __name__ == "__main__":
